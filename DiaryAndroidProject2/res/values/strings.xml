@@ -4,6 +4,11 @@
     <string name="app_name">DiaryAndroidProject2</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-	<string name="txtPincode">Pincode</string>
-	<string name="btnLogin">Start To Write</string>
+    <string name="txtPincode">Pincode</string>
+    <string name="btnLogin">Start To Write</string>
+    <string name="title_activity_list_diary">ListDiaryActivity</string>
+    <string name="title_activity_add_diary">AddDiaryActivity</string>
+    <string name="title_activity_theme">ThemeActivity</string>
+    <string name="title_activity_diary_detail">DiaryDetail</string>
+
 </resources>

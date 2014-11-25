@@ -22,6 +22,34 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".ListDiaryActivity"
+            android:label="@string/title_activity_list_diary" >
+        </activity>
+        <activity
+            android:name=".AddDiaryActivity"
+            android:label="@string/title_activity_add_diary"
+            android:parentActivityName=".ListDiaryActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.iuce.diaryandroidproject2.ListDiaryActivity" />
+        </activity>
+        <activity
+            android:name=".ThemeActivity"
+            android:label="@string/title_activity_theme"
+            android:parentActivityName=".ListDiaryActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.iuce.diaryandroidproject2.ListDiaryActivity" />
+        </activity>
+        <activity
+            android:name=".DiaryDetail"
+            android:label="@string/title_activity_diary_detail"
+            android:parentActivityName=".ListDiaryActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.iuce.diaryandroidproject2.ListDiaryActivity" />
+        </activity>
     </application>
 
 </manifest>

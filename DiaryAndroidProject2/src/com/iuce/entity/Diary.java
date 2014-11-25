@@ -1,9 +1,11 @@
 package com.iuce.entity;
 
 import java.sql.Struct;
+import java.util.Date;
 import java.util.Map;
 
 public class Diary {
+	private Date date;
 	private String title;
 	private String content;
 	private String[] images;
@@ -12,6 +14,12 @@ public class Diary {
 	
 	
 	
+	public Date getDate() {
+		return date;
+	}
+	public void setDate(Date date) {
+		this.date = date;
+	}
 	public String getTitle() {
 		return title;
 	}
