@@ -8,13 +8,14 @@ public class PasswordAlgorithm {
 		super();
 		this.password = password;
 	}
-	
-	public String encyription(){
-		
+
+	public String encyription() {
+
 		return "";
 	}
-	public String decyription(){
+
+	public String decyription() {
 		return "";
 	}
-	
+
 }
