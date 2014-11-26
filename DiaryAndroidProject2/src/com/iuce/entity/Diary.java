@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.Map;
 
 public class Diary {
+	private int id;
 	private Date date;
 	private String title;
 	private String content;
@@ -14,6 +15,12 @@ public class Diary {
 	
 	
 	
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
 	public Date getDate() {
 		return date;
 	}

@@ -13,6 +13,7 @@ public interface IDiaryOperations {
 	
 	public boolean addDiary(Diary diary);
 	public boolean removeDiary(int id);
-	public boolean editDiary(int id, Diary diary);
+	public boolean updateDiary(int id, Diary diary);
 	public List<Diary> listDiary();
+
 }
