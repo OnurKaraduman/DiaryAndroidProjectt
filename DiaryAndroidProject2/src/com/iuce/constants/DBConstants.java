@@ -9,19 +9,33 @@ public class DBConstants {
 	public static String DATABASE_NAME = "Diary.db";
 	public static int DATABASE_VERSION = 1;
 	public static String DIARY_TABLE = "diary";
+	public static String PHOTO_TABLE = "photoTable";
 
 	public static String DB_PATH = "content://" + PACKAGE_NAME + "/diary";
-	
-	//diary tablosu kolon isimleri
-	public static String ID = "id";
-	public static String DATE = "date";
-	public static String TITLE = "title";
-	public static String CONTENT = "content";
-	public static String LONGITUDE = "longitude";
-	public static String LATITUDE = "latitude";
-	
-	
-	
-	
-	
+
+	// diary tablosu kolon isimleri
+	public static String DIARY_ID = "id";
+	public static String DIARY_DATE = "date";
+	public static String DIARY_TITLE = "title";
+	public static String DIARY_CONTENT = "content";
+	public static String DIARY_LONGITUDE = "longitude";
+	public static String DIARY_LATITUDE = "latitude";
+
+	// fotolar tablosu kolon isimleri
+	public static String PHOTO_ID = "id";
+	public static String PHOTO_NAME = "fotoName";
+	public static String PHOTO_DIARY_ID = "diaryID";
+
+	// diary tablo create
+	public static String CREATE_DIARY_TABLE = "create table " + DIARY_TABLE
+			+ "( " + DIARY_ID + " integer primary key autoincrement, "
+			+ DIARY_TITLE + " text, " + DIARY_CONTENT + " text, " + DIARY_DATE
+			+ " date, " + DIARY_LATITUDE + " float" + DIARY_LONGITUDE
+			+ " float);";
+
+	// foto tablo create
+	public static String CREATE_PHOTO_TABLE = "create table " + PHOTO_TABLE
+			+ "( " + PHOTO_ID + " integer primary key autoincrement, "
+			+ PHOTO_NAME + " text, " + PHOTO_DIARY_ID + " integer);";
+
 }
