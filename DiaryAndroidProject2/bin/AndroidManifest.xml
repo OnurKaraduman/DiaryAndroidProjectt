@@ -8,6 +8,10 @@
         android:minSdkVersion="8"
         android:targetSdkVersion="17" />
 
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
@@ -41,6 +45,22 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.iuce.diaryandroidproject2.ListDiaryActivity" />
+        </activity>
+        <activity
+            android:name=".DiaryDetail"
+            android:label="@string/title_activity_diary_detail"
+            android:parentActivityName=".ListDiaryActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.iuce.diaryandroidproject2.ListDiaryActivity" />
+        </activity>
+        <activity
+            android:name=".CameraActivity"
+            android:label="@string/title_activity_camera"
+            android:parentActivityName=".AddDiaryActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.iuce.diaryandroidproject2.AddDiaryActivity" />
         </activity>
     </application>
 

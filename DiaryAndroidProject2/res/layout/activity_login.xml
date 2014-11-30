@@ -28,4 +28,14 @@
         android:layout_marginBottom="59dp"
         android:text="@string/btnLogin" />
 
+    <Button
+        android:id="@+id/btnOpenGallery"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/edttxtPincode"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="53dp"
+        android:layout_marginTop="73dp"
+        android:text="Button" />
+
 </RelativeLayout>

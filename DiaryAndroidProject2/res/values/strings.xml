@@ -10,5 +10,7 @@
     <string name="title_activity_add_diary">AddDiaryActivity</string>
     <string name="title_activity_theme">ThemeActivity</string>
     <string name="title_activity_diary_detail">DiaryDetail</string>
+    <string name="btnDiaryDetail">Detail</string>
+    <string name="title_activity_camera">CameraActivity</string>
 
 </resources>
