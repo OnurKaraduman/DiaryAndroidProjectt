@@ -1,12 +1,23 @@
 package com.iuce.diaryandroidproject2;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import android.support.v7.app.ActionBarActivity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.hardware.Camera;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,6 +29,8 @@ import android.widget.TextView;
 
 public class AddDiaryActivity extends ActionBarActivity {
 
+	private static int MEDIA_TYPE_IMAGE = 1;
+	private static int MEDIA_TYPE_VIDEO = 2;
 	private TextView txtTitle;
 	private TextView txtContent;
 	private CalendarView calViewNowDate;
@@ -64,6 +77,8 @@ public class AddDiaryActivity extends ActionBarActivity {
 					startActivityForResult(takePictureIntent,
 							REQUEST_IMAGE_CAPTURE);
 				}
+
+				// dispatchTakePictureIntent();
 			}
 		});
 	}
@@ -98,10 +113,12 @@ public class AddDiaryActivity extends ActionBarActivity {
 				selectedImagePath = getPath(selectedImageUri);
 				imgView.setImageURI(selectedImageUri);
 				txtDeneme.setText(selectedImageUri.toString());
-				
+
 			} else if (requestCode == REQUEST_IMAGE_CAPTURE) {
 				Bundle extras = data.getExtras();
 				Bitmap imageBitmap = (Bitmap) extras.get("data");
+				byte[] imageData = convertBitmapToByteArray(imageBitmap);
+				onPictureTaken(imageData);
 				imgView.setImageBitmap(imageBitmap);
 
 			}
@@ -123,5 +140,81 @@ public class AddDiaryActivity extends ActionBarActivity {
 
 		}
 		return null;
+	}
+
+	public byte[] convertBitmapToByteArray(Bitmap bmp) {
+
+		ByteArrayOutputStream stream = new ByteArrayOutputStream();
+		bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);
+		byte[] byteArray = stream.toByteArray();
+		return byteArray;
+	}
+
+	//fotografýn kaydedilecegi dosyayý oluþtur
+	private static File getOutputMediaFile(int type) {
+		// To be safe, you should check that the SDCard is mounted
+		// using Environment.getExternalStorageState() before doing this.
+
+		File mediaStorageDir = new File(
+				Environment
+						.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
+				"MyCameraApp");
+		// This location works best if you want the created images to be shared
+		// between applications and persist after your app has been uninstalled.
+
+		// Create the storage directory if it does not exist
+		if (!mediaStorageDir.exists()) {
+			if (!mediaStorageDir.mkdirs()) {
+				Log.d("MyCameraApp", "failed to create directory");
+				return null;
+			}
+		}
+
+		// Create a media file name
+		String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss")
+				.format(new Date());
+		File mediaFile;
+		String myPath;
+		if (type == MEDIA_TYPE_IMAGE) {
+			myPath = mediaStorageDir.getPath() + File.separator + "IMG_"
+					+ timeStamp + ".jpg";
+			mediaFile = new File(myPath);
+		} else if (type == MEDIA_TYPE_VIDEO) {
+			myPath = mediaStorageDir.getPath() + File.separator + "VID_"
+					+ timeStamp + ".mp4";
+			mediaFile = new File(myPath);
+		} else {
+			return null;
+		}
+
+		return mediaFile;
+	}
+
+	//fotografý galeriye kaydet
+	public void onPictureTaken(byte[] data) {
+		// TODO Auto-generated method stub
+		File pictureFile = getOutputMediaFile(MEDIA_TYPE_IMAGE);
+		if (pictureFile == null) {
+			Log.d("---", "error creating media file, check storage permissions");
+			return;
+
+		}
+		try {
+			try {
+				Thread.sleep(2000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			FileOutputStream fos = new FileOutputStream(pictureFile);
+			fos.write(data);
+			fos.close();
+
+		} catch (FileNotFoundException e) {
+			Log.d("", "File not found: " + e.getMessage());
+		} catch (IOException e) {
+			Log.d("", "Error accessing file: " + e.getMessage());
+		}
+
 	}
 }
