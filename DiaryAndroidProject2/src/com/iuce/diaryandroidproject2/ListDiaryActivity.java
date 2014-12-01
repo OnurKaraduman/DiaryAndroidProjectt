@@ -5,28 +5,34 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import com.iuce.diaryandroidproject2.R;
 import com.iuce.adapters.DiaryListAdapter;
 import com.iuce.control.DiaryOperations;
 import com.iuce.control.IDiaryOperations;
 import com.iuce.entity.Diary;
 
 import android.support.v7.app.ActionBarActivity;
+import android.app.Fragment;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.Toast;
 
-public class ListDiaryActivity extends ActionBarActivity {
+public class ListDiaryActivity extends Fragment {
 
 	private IDiaryOperations diaryOperation;
 	private ListView listDiary;
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_list_diary);
-		diaryOperation = new DiaryOperations(this);
-		listDiary = (ListView) findViewById(R.id.listDiary);
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		View view = inflater.inflate(R.layout.activity_list_diary, container,false);
+		
+		diaryOperation = new DiaryOperations(getActivity());
+		listDiary = (ListView) view.findViewById(R.id.listDiary);
 		Diary d = new Diary();
 //		d.setTitle("denme");
 //		d.setContent("ilk deneme");
@@ -42,16 +48,12 @@ public class ListDiaryActivity extends ActionBarActivity {
 //		else
 //			Toast.makeText(this, "hata", Toast.LENGTH_LONG).show();
 		List<Diary> diaries = diaryOperation.listDiary();
-		DiaryListAdapter diaryAdapter = new DiaryListAdapter(this, R.layout.diary_list_row, diaries);
+		DiaryListAdapter diaryAdapter = new DiaryListAdapter(getActivity(), R.layout.diary_list_row, diaries);
 		listDiary.setAdapter(diaryAdapter);
+		return view;
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-//		getMenuInflater().inflate(R.menu.list_diary, menu);
-		return true;
-	}
+	
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {

@@ -12,5 +12,14 @@
     <string name="title_activity_diary_detail">DiaryDetail</string>
     <string name="btnDiaryDetail">Detail</string>
     <string name="title_activity_camera">CameraActivity</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="drawer_open">Drawer Açıldı</string>
+    <string name="drawer_close">Drawer Kapandı</string>
+
+    <string-array name="leftMenu">
+        <item>New Diary</item>
+        <item>All Diaries</item>
+        <item>Log Out</item>
+    </string-array>
 
 </resources>
