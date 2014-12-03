@@ -26,9 +26,13 @@ public class ListDiaryActivity extends Fragment {
 
 	private IDiaryOperations diaryOperation;
 	private ListView listDiary;
+	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+
 		// TODO Auto-generated method stub
+
 		View view = inflater.inflate(R.layout.activity_list_diary, container,false);
 		
 		diaryOperation = new DiaryOperations(getActivity());
@@ -53,6 +57,7 @@ public class ListDiaryActivity extends Fragment {
 		return view;
 	}
 
+	
 	
 
 	@Override

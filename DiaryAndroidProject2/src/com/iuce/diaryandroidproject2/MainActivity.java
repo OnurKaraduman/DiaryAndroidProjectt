@@ -33,7 +33,7 @@ public class MainActivity extends ActionBarActivity {
 		ListDiaryActivity fragementList = new ListDiaryActivity();
 		ft.add(R.id.content_frame, fragementList);
 		ft.commit();
-		mTitle = "gelecegi yazanlar";
+		mTitle = "Diary Project";
 		getActionBar().setTitle(mTitle);
 		mDrawerLayout = (DrawerLayout )findViewById(R.id.drawer_layout);
 		mDrawerList = (ListView) findViewById(R.id.drawer_list);
@@ -87,7 +87,25 @@ public class MainActivity extends ActionBarActivity {
 						
 						FragmentManager fragmentManager = getFragmentManager();
 						FragmentTransaction ft = fragmentManager.beginTransaction();
-
+						if (position == 0) {
+							AddDiaryActivity fragmentAddDiary = new AddDiaryActivity();
+							ft.replace(R.id.content_frame, fragmentAddDiary);
+							ft.commit();
+							
+						}
+						else if (position == 1) {
+							ListDiaryActivity fragmentListDiary = new ListDiaryActivity();
+							ft.replace(R.id.content_frame, fragmentListDiary);
+							ft.commit();
+//							DenemeFragment df = new DenemeFragment();
+//							ft.replace(R.id.content_frame, df);
+//							ft.commit();
+						}
+						else if (position == 2) {
+							DiaryDetail diaryDetail = new DiaryDetail();
+							ft.replace(R.id.content_frame, diaryDetail);
+							ft.commit();
+						}
 						// fragmenti contente yerleþtirme.
 					
 					

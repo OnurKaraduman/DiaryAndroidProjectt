@@ -2,6 +2,7 @@ package com.iuce.diaryandroidproject2;
 
 import android.support.v7.app.ActionBarActivity;
 import android.app.Activity;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -24,6 +25,9 @@ public class LoginActivity extends Activity {
 				// TODO Auto-generated method stub
 				Intent intent = new Intent(LoginActivity.this, MainActivity.class);
 				startActivity(intent);
+//				DiaryDetail diaryD = new DiaryDetail();
+//				FragmentTransaction fTransaction = getFragmentManager().beginTransaction();
+//				fTransaction.add(R., tag)
 			}
 		});
 		

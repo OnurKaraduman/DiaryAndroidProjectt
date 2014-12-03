@@ -9,25 +9,30 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import android.support.v7.app.ActionBarActivity;
+import android.app.Activity;
+import android.app.Fragment;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable.Callback;
 import android.hardware.Camera;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class AddDiaryActivity extends ActionBarActivity {
+public class AddDiaryActivity extends Fragment {
 
 	private static int MEDIA_TYPE_IMAGE = 1;
 	private static int MEDIA_TYPE_VIDEO = 2;
@@ -46,13 +51,17 @@ public class AddDiaryActivity extends ActionBarActivity {
 	private TextView txtDeneme;
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_add_diary);
-		btnOpenGallery = (Button) findViewById(R.id.btnOpenGallery);
-		btnOpenCamera = (Button) findViewById(R.id.btnOpenCamera);
-		imgView = (ImageView) findViewById(R.id.imageView1);
-		txtDeneme = (TextView) findViewById(R.id.textView1);
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
+
+		// TODO Auto-generated method stub
+		View view = inflater.inflate(R.layout.activity_add_diary, container,
+				false);
+		btnOpenGallery = (Button) view.findViewById(
+				R.id.btnOpenGallery);
+		btnOpenCamera = (Button) view.findViewById(R.id.btnOpenCamera);
+		imgView = (ImageView) view.findViewById(R.id.imageView1);
+		txtDeneme = (TextView) view.findViewById(R.id.textView1);
 		btnOpenGallery.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -73,7 +82,8 @@ public class AddDiaryActivity extends ActionBarActivity {
 				// TODO Auto-generated method stub
 				Intent takePictureIntent = new Intent(
 						MediaStore.ACTION_IMAGE_CAPTURE);
-				if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+				if (takePictureIntent.resolveActivity(getActivity()
+						.getPackageManager()) != null) {
 					startActivityForResult(takePictureIntent,
 							REQUEST_IMAGE_CAPTURE);
 				}
@@ -81,30 +91,13 @@ public class AddDiaryActivity extends ActionBarActivity {
 				// dispatchTakePictureIntent();
 			}
 		});
-	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		// getMenuInflater().inflate(R.menu.add_diary, menu);
-		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		// int id = item.getItemId();
-		// if (id == R.id.action_settings) {
-		// return true;
-		// }
-		return super.onOptionsItemSelected(item);
+		return view;
 	}
 
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if (resultCode == RESULT_OK) {
+		if (resultCode == getActivity().RESULT_OK) {
 			if (requestCode == SELECT_PICTURE) {
 				Uri selectedImageUri = data.getData();
 
@@ -131,7 +124,8 @@ public class AddDiaryActivity extends ActionBarActivity {
 			return null;
 		}
 		String[] projection = { MediaStore.Images.Media.DATA };
-		Cursor cursor = managedQuery(uri, projection, null, null, null);
+		Cursor cursor = getActivity().managedQuery(uri, projection, null, null,
+				null);
 		if (cursor != null) {
 			int columnIndex = cursor
 					.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
@@ -150,7 +144,7 @@ public class AddDiaryActivity extends ActionBarActivity {
 		return byteArray;
 	}
 
-	//fotografýn kaydedilecegi dosyayý oluþtur
+	// fotografýn kaydedilecegi dosyayý oluþtur
 	private static File getOutputMediaFile(int type) {
 		// To be safe, you should check that the SDCard is mounted
 		// using Environment.getExternalStorageState() before doing this.
@@ -190,7 +184,7 @@ public class AddDiaryActivity extends ActionBarActivity {
 		return mediaFile;
 	}
 
-	//fotografý galeriye kaydet
+	// fotografý galeriye kaydet
 	public void onPictureTaken(byte[] data) {
 		// TODO Auto-generated method stub
 		File pictureFile = getOutputMediaFile(MEDIA_TYPE_IMAGE);
