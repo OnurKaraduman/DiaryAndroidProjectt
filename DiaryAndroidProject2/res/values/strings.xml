@@ -24,5 +24,6 @@
         <item>Music</item>
         <item>Log Out</item>
     </string-array>
+        <string name="btn_horosope_detail">Read</string>
 
 </resources>

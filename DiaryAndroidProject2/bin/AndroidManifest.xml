@@ -8,6 +8,8 @@
         android:minSdkVersion="14"
         android:targetSdkVersion="17" />
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <uses-feature
         android:name="android.hardware.camera"
         android:required="true" />
@@ -66,7 +68,10 @@
             android:name=".MainActivity"
             android:label="@string/title_activity_main" >
         </activity>
-        <service android:enabled="true" android:name="com.iuce.services.MusicService" />
+
+        <service
+            android:name="com.iuce.services.MusicService"
+            android:enabled="true" />
     </application>
 
 </manifest>

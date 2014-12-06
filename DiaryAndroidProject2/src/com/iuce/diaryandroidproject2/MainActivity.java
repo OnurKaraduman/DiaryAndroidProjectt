@@ -106,6 +106,11 @@ public class MainActivity extends ActionBarActivity {
 							ft.replace(R.id.content_frame, musicFragment);
 							ft.commit();
 						}
+						else if (position == 3) {
+							HoroscopeFragment horoscopeFragment = new HoroscopeFragment();
+							ft.replace(R.id.content_frame, horoscopeFragment);
+							ft.commit();
+						}
 						// fragmenti contente yerleþtirme.
 					
 					
