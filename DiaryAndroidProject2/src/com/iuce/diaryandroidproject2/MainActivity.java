@@ -102,8 +102,8 @@ public class MainActivity extends ActionBarActivity {
 //							ft.commit();
 						}
 						else if (position == 2) {
-							DiaryDetail diaryDetail = new DiaryDetail();
-							ft.replace(R.id.content_frame, diaryDetail);
+							MusicFragment musicFragment = new MusicFragment();
+							ft.replace(R.id.content_frame, musicFragment);
 							ft.commit();
 						}
 						// fragmenti contente yerleþtirme.

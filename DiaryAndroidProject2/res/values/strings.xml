@@ -15,10 +15,13 @@
     <string name="title_activity_main">MainActivity</string>
     <string name="drawer_open">Drawer Açıldı</string>
     <string name="drawer_close">Drawer Kapandı</string>
+    <string name="sw_start_stop_music">Music</string>
+    <string name="btn_music_player_open">Music Player</string>
 
     <string-array name="leftMenu">
         <item>New Diary</item>
         <item>All Diaries</item>
+        <item>Music</item>
         <item>Log Out</item>
     </string-array>
 

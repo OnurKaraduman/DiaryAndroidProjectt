@@ -66,6 +66,7 @@
             android:name=".MainActivity"
             android:label="@string/title_activity_main" >
         </activity>
+        <service android:enabled="true" android:name="com.iuce.services.MusicService" />
     </application>
 
 </manifest>
