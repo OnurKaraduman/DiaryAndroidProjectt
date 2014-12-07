@@ -15,6 +15,7 @@ public class Diary {
 	
 	
 	
+	
 	public int getId() {
 		return id;
 	}

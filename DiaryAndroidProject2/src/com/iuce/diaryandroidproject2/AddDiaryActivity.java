@@ -21,6 +21,9 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable.Callback;
 import android.hardware.Camera;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -63,6 +66,7 @@ public class AddDiaryActivity extends Fragment {
 	private int RESULT_SPEECH = 3;
 
 	private VoiceRecord vRecord;
+	private LocationManager locManager;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -72,6 +76,8 @@ public class AddDiaryActivity extends Fragment {
 		View view = inflater.inflate(R.layout.activity_add_diary, container,
 				false);
 		vRecord = new VoiceRecord();
+		locManager = (LocationManager) getActivity().getSystemService(
+				getActivity().LOCATION_SERVICE);
 		btnOpenGallery = (Button) view.findViewById(R.id.btnOpenGallery);
 		btnOpenCamera = (Button) view.findViewById(R.id.btnOpenCamera);
 		imgView = (ImageView) view.findViewById(R.id.imageView1);
@@ -111,6 +117,7 @@ public class AddDiaryActivity extends Fragment {
 				onRecord();
 			}
 		});
+		getCurrentLocation();
 
 		return view;
 	}
@@ -149,6 +156,39 @@ public class AddDiaryActivity extends Fragment {
 			isRecord = true;
 
 		vRecord.onRecord(isRecord);
+	}
+
+	//take current location and assing to text of txtDeneme
+	public void getCurrentLocation() {
+		LocationListener mLocationListener = new LocationListener() {
+
+			@Override
+			public void onLocationChanged(Location location) {
+				// TODO Auto-generated method stub
+				txtDeneme.setText(String.valueOf(location.getLatitude()));
+			}
+
+			@Override
+			public void onStatusChanged(String provider, int status,
+					Bundle extras) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void onProviderEnabled(String provider) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void onProviderDisabled(String provider) {
+				// TODO Auto-generated method stub
+
+			}
+		};
+		locManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000,
+				10, mLocationListener);
 	}
 
 	@Override

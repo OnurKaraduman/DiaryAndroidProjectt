@@ -103,4 +103,11 @@ public class DiaryOperations implements IDiaryOperations {
 		return diaries;
 	}
 
+	@Override
+	public Diary getDiaryWithDate(String date) {
+		// TODO Auto-generated method stub
+		
+		return null;
+	}
+
 }

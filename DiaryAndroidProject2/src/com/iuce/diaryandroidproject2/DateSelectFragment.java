@@ -18,6 +18,7 @@ public class DateSelectFragment extends Fragment{
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
+		
 		View view = inflater.inflate(R.layout.fragment_date_selector, container,false);
 		calenderView = (CalendarView) view.findViewById(R.id.calendarView1);
 		calenderView.setOnDateChangeListener(new OnDateChangeListener() {
@@ -29,6 +30,7 @@ public class DateSelectFragment extends Fragment{
 				AddDiaryActivity addDiaryFragment = new AddDiaryActivity();
 				getActivity().getFragmentManager().beginTransaction().replace(R.id.content_frame, addDiaryFragment).commit();
 			}
+			
 		});
 		return view;
 	}
