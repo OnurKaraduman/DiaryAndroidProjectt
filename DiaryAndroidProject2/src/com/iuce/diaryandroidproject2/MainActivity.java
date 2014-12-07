@@ -88,8 +88,11 @@ public class MainActivity extends ActionBarActivity {
 						FragmentManager fragmentManager = getFragmentManager();
 						FragmentTransaction ft = fragmentManager.beginTransaction();
 						if (position == 0) {
-							AddDiaryActivity fragmentAddDiary = new AddDiaryActivity();
-							ft.replace(R.id.content_frame, fragmentAddDiary);
+//							AddDiaryActivity fragmentAddDiary = new AddDiaryActivity();
+//							ft.replace(R.id.content_frame, fragmentAddDiary);
+//							ft.commit();
+							DateSelectFragment dsFragment = new DateSelectFragment();
+							ft.replace(R.id.content_frame, dsFragment);
 							ft.commit();
 							
 						}
