@@ -32,5 +32,6 @@
     <string name="btn_gallery_open">Gallery</string>
     <string name="btn_speecth_text">Speak</string>
     <string name="btn_send_email">Send Email</string>
+    <string name="btn_record_voice">Voice Record</string>
 
 </resources>

@@ -10,6 +10,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import com.iuce.services.VoiceRecord;
+
 import android.speech.RecognizerIntent;
 import android.support.v7.app.ActionBarActivity;
 import android.app.Activity;
@@ -33,6 +35,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.ImageView;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 public class AddDiaryActivity extends Fragment {
@@ -45,8 +48,10 @@ public class AddDiaryActivity extends Fragment {
 	private Button btnSaveDiary;
 	private Button btnOpenCamera;
 	private Button btnOpenGallery;
+	private Button btnRecordVoice;
 	private static final int SELECT_PICTURE = 1;
 	static final int REQUEST_IMAGE_CAPTURE = 2;
+	private boolean isRecord = false;
 	private String selectedImagePath;
 	String filemanagerstring;
 
@@ -57,6 +62,8 @@ public class AddDiaryActivity extends Fragment {
 
 	private int RESULT_SPEECH = 3;
 
+	private VoiceRecord vRecord;
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -64,22 +71,19 @@ public class AddDiaryActivity extends Fragment {
 		// TODO Auto-generated method stub
 		View view = inflater.inflate(R.layout.activity_add_diary, container,
 				false);
+		vRecord = new VoiceRecord();
 		btnOpenGallery = (Button) view.findViewById(R.id.btnOpenGallery);
 		btnOpenCamera = (Button) view.findViewById(R.id.btnOpenCamera);
 		imgView = (ImageView) view.findViewById(R.id.imageView1);
 		txtDeneme = (TextView) view.findViewById(R.id.txtDetailHoroscopeTitle);
 		btnSpeechToText = (Button) view.findViewById(R.id.btnSpeectToText);
+		btnRecordVoice = (Button) view.findViewById(R.id.btnRecordVoice);
 		btnOpenGallery.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				Intent intent = new Intent();
-				intent.setType("image/*");
-				intent.setAction(Intent.ACTION_GET_CONTENT);
-				startActivityForResult(
-						Intent.createChooser(intent, "Select Picture"),
-						SELECT_PICTURE);
+				openGallery();
 			}
 		});
 		btnOpenCamera.setOnClickListener(new OnClickListener() {
@@ -87,14 +91,7 @@ public class AddDiaryActivity extends Fragment {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				Intent takePictureIntent = new Intent(
-						MediaStore.ACTION_IMAGE_CAPTURE);
-				if (takePictureIntent.resolveActivity(getActivity()
-						.getPackageManager()) != null) {
-					startActivityForResult(takePictureIntent,
-							REQUEST_IMAGE_CAPTURE);
-				}
-
+				openCamera();
 				// dispatchTakePictureIntent();
 			}
 		});
@@ -103,22 +100,55 @@ public class AddDiaryActivity extends Fragment {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				// Intent intent = new
-				// Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-				// intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
-				// "en-US");
-				// startActivityForResult(intent, RESULT_SPEECH);
-				Intent intRecognize = new Intent(
-						RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-				intRecognize.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
-						RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-				intRecognize.putExtra(RecognizerIntent.EXTRA_PROMPT,
-						"Speech recognition demo");
-				startActivityForResult(intRecognize, RESULT_SPEECH);
+				openRecognizer();
+			}
+		});
+		btnRecordVoice.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stuba
+				onRecord();
 			}
 		});
 
 		return view;
+	}
+
+	public void openGallery() {
+		Intent intent = new Intent();
+		intent.setType("image/*");
+		intent.setAction(Intent.ACTION_GET_CONTENT);
+		startActivityForResult(Intent.createChooser(intent, "Select Picture"),
+				SELECT_PICTURE);
+	}
+
+	public void openCamera() {
+		Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+		if (takePictureIntent
+				.resolveActivity(getActivity().getPackageManager()) != null) {
+			startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+		}
+
+	}
+
+	public void openRecognizer() {
+		Intent intRecognize = new Intent(
+				RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+		intRecognize.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+				RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+		intRecognize.putExtra(RecognizerIntent.EXTRA_PROMPT,
+				"Speech recognition demo");
+		startActivityForResult(intRecognize, RESULT_SPEECH);
+	}
+
+	public void onRecord() {
+		if (isRecord) {
+			isRecord = false;
+		} else
+			isRecord = true;
+
+		vRecord.onRecord(isRecord);
 	}
 
 	@Override
