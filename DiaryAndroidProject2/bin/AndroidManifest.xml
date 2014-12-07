@@ -24,11 +24,6 @@
         <activity
             android:name=".LoginActivity"
             android:label="@string/app_name" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".ListDiaryActivity"
@@ -78,6 +73,15 @@
         <activity
             android:name=".HoroscopDetailActivity"
             android:label="@string/title_activity_horoscop_detail" >
+        </activity>
+        <activity
+            android:name=".AcilisActivity"
+            android:label="@string/title_activity_acilis" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 

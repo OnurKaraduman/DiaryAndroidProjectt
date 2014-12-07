@@ -22,7 +22,7 @@
         <item>New Diary</item>
         <item>All Diaries</item>
         <item>Music</item>
-         <item>Horoscopes</item>
+        <item>Horoscopes</item>
         <item>Diary Detail</item>
     </string-array>
 
@@ -33,5 +33,6 @@
     <string name="btn_speecth_text">Speak</string>
     <string name="btn_send_email">Send Email</string>
     <string name="btn_record_voice">Voice Record</string>
+    <string name="title_activity_acilis">AcilisActivity</string>
 
 </resources>
