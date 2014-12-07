@@ -12,12 +12,14 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 
 public class LoginActivity extends Activity {
-
+	private Button btnStartToWrite;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
 		Button btn = (Button) findViewById(R.id.btnOpenGallery);
+		btnStartToWrite = (Button) findViewById(R.id.btnLogin);
+		
 		btn.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -28,6 +30,14 @@ public class LoginActivity extends Activity {
 //				DiaryDetail diaryD = new DiaryDetail();
 //				FragmentTransaction fTransaction = getFragmentManager().beginTransaction();
 //				fTransaction.add(R., tag)
+			}
+		});
+		btnStartToWrite.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+//				LoginActivity.this.setTheme(R.style.Theme);;
 			}
 		});
 		

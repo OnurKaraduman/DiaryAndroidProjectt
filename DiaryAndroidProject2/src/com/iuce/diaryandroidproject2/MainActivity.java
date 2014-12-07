@@ -111,6 +111,11 @@ public class MainActivity extends ActionBarActivity {
 							ft.replace(R.id.content_frame, horoscopeFragment);
 							ft.commit();
 						}
+						else if (position == 4) {
+							DiaryDetail diaryDetailFragment = new DiaryDetail();
+							ft.replace(R.id.content_frame, diaryDetailFragment);
+							ft.commit();
+						}
 						// fragmenti contente yerleþtirme.
 					
 					

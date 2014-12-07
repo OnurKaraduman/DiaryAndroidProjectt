@@ -22,10 +22,15 @@
         <item>New Diary</item>
         <item>All Diaries</item>
         <item>Music</item>
-        <item>Log Out</item>
+         <item>Horoscopes</item>
+        <item>Diary Detail</item>
     </string-array>
 
     <string name="btn_horosope_detail">Read</string>
     <string name="title_activity_horoscop_detail">HoroscopDetailActivity</string>
+    <string name="btn_camera_open">Camera</string>
+    <string name="btn_gallery_open">Gallery</string>
+    <string name="btn_speecth_text">Speak</string>
+    <string name="btn_send_email">Send Email</string>
 
 </resources>

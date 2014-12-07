@@ -1,13 +1,16 @@
 package com.iuce.diaryandroidproject2;
 
+//yapilacak speech to text
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
+import android.speech.RecognizerIntent;
 import android.support.v7.app.ActionBarActivity;
 import android.app.Activity;
 import android.app.Fragment;
@@ -50,6 +53,10 @@ public class AddDiaryActivity extends Fragment {
 	private ImageView imgView;
 	private TextView txtDeneme;
 
+	private Button btnSpeechToText;
+
+	private int RESULT_SPEECH = 3;
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -57,11 +64,11 @@ public class AddDiaryActivity extends Fragment {
 		// TODO Auto-generated method stub
 		View view = inflater.inflate(R.layout.activity_add_diary, container,
 				false);
-		btnOpenGallery = (Button) view.findViewById(
-				R.id.btnOpenGallery);
+		btnOpenGallery = (Button) view.findViewById(R.id.btnOpenGallery);
 		btnOpenCamera = (Button) view.findViewById(R.id.btnOpenCamera);
 		imgView = (ImageView) view.findViewById(R.id.imageView1);
 		txtDeneme = (TextView) view.findViewById(R.id.txtDetailHoroscopeTitle);
+		btnSpeechToText = (Button) view.findViewById(R.id.btnSpeectToText);
 		btnOpenGallery.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -91,6 +98,25 @@ public class AddDiaryActivity extends Fragment {
 				// dispatchTakePictureIntent();
 			}
 		});
+		btnSpeechToText.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				// Intent intent = new
+				// Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+				// intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+				// "en-US");
+				// startActivityForResult(intent, RESULT_SPEECH);
+				Intent intRecognize = new Intent(
+						RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+				intRecognize.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+						RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+				intRecognize.putExtra(RecognizerIntent.EXTRA_PROMPT,
+						"Speech recognition demo");
+				startActivityForResult(intRecognize, RESULT_SPEECH);
+			}
+		});
 
 		return view;
 	}
@@ -114,6 +140,11 @@ public class AddDiaryActivity extends Fragment {
 				onPictureTaken(imageData);
 				imgView.setImageBitmap(imageBitmap);
 
+			} else if (requestCode == RESULT_SPEECH) {
+				ArrayList<String> text = data
+						.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+				// set text field with return value
+				// txtText.setText(text.get(0));
 			}
 		}
 	}

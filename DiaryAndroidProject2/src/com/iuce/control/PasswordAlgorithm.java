@@ -11,6 +11,7 @@ public class PasswordAlgorithm {
 
 	public String encyription() {
 
+		
 		return "";
 	}
 
