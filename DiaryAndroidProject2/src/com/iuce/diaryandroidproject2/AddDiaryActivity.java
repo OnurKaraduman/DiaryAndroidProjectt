@@ -61,7 +61,7 @@ public class AddDiaryActivity extends Fragment {
 				R.id.btnOpenGallery);
 		btnOpenCamera = (Button) view.findViewById(R.id.btnOpenCamera);
 		imgView = (ImageView) view.findViewById(R.id.imageView1);
-		txtDeneme = (TextView) view.findViewById(R.id.textView1);
+		txtDeneme = (TextView) view.findViewById(R.id.txtDetailHoroscopeTitle);
 		btnOpenGallery.setOnClickListener(new OnClickListener() {
 
 			@Override

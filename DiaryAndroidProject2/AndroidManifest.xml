@@ -72,6 +72,11 @@
         <service
             android:name="com.iuce.services.MusicService"
             android:enabled="true" />
+
+        <activity
+            android:name=".HoroscopDetailActivity"
+            android:label="@string/title_activity_horoscop_detail" >
+        </activity>
     </application>
 
 </manifest>

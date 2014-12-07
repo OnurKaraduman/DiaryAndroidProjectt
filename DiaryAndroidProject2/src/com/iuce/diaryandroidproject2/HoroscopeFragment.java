@@ -19,7 +19,6 @@ import org.xml.sax.SAXException;
 
 import com.iuce.adapters.HoroscopeListAdapter;
 import com.iuce.entity.Horoscope;
-import com.iuce.services.HoroscopeService;
 
 import android.app.Fragment;
 import android.app.ProgressDialog;
@@ -28,6 +27,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
 public class HoroscopeFragment extends Fragment {
@@ -53,6 +54,17 @@ public class HoroscopeFragment extends Fragment {
 		hAdapter = new HoroscopeListAdapter(getActivity(),
 				R.layout.fragment_horoscope, horoscopes);
 		listViewHoroscopes.setAdapter(hAdapter);
+		listViewHoroscopes.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				// TODO Auto-generated method stub
+				
+				
+			}
+          
+        });
 		return view;
 	}
 
@@ -122,8 +134,7 @@ public class HoroscopeFragment extends Fragment {
 
 						String txtDescription = ((Node) description.item(0))
 								.getNodeValue();
-						System.out.println("title:" + txtTitle
-								+ "description: " + txtDescription);
+						
 						h.setTitle(txtTitle);
 						h.setDescription(txtDescription);
 						horoscopes.add(h);
