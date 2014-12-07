@@ -34,5 +34,7 @@
     <string name="btn_send_email">Send Email</string>
     <string name="btn_record_voice">Voice Record</string>
     <string name="title_activity_acilis">AcilisActivity</string>
+    <string name="btn_exit_detal_horoscope">Exit</string>
+    <string name="btn_send_diary_sms">Send Sms</string>
 
 </resources>

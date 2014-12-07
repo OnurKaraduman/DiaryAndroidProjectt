@@ -16,5 +16,15 @@
         android:layout_alignParentRight="true"
         android:layout_marginRight="18dp"
         android:text="@string/btn_send_email" />
+
+    <Button
+        android:id="@+id/btnSendDiarySms"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/btnSendEmail"
+        android:layout_alignBottom="@+id/btnSendEmail"
+        android:layout_marginRight="27dp"
+        android:layout_toLeftOf="@+id/btnSendEmail"
+        android:text="@string/btn_send_diary_sms" />
    
 </RelativeLayout>
