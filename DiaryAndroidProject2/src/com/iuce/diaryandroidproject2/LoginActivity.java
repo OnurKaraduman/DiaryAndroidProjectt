@@ -1,5 +1,8 @@
 package com.iuce.diaryandroidproject2;
 
+import com.iuce.control.ILoginControl;
+import com.iuce.control.LoginControl;
+
 import android.support.v7.app.ActionBarActivity;
 import android.app.Activity;
 import android.app.FragmentTransaction;
@@ -10,26 +13,51 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
 public class LoginActivity extends Activity {
 	private Button btnLogin;
+	private EditText edtTxtPassword;
+	private boolean isFirst = false;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
-		
+		edtTxtPassword =(EditText) findViewById(R.id.edttxtPincode);
 		btnLogin = (Button) findViewById(R.id.btnLogin);
+		
+		final ILoginControl logControl = new LoginControl(getApplicationContext());
+		isFirst = logControl.controlFirstOpen();
+		if (isFirst) {
+			btnLogin.setText("Save Password");
+			
+		}
 		
 		btnLogin.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-				startActivity(intent);
-//				DiaryDetail diaryD = new DiaryDetail();
-//				FragmentTransaction fTransaction = getFragmentManager().beginTransaction();
-//				fTransaction.add(R., tag)
+				String password = edtTxtPassword.getText().toString();
+				if (isFirst) {
+					logControl.savePassword(password);
+					Toast.makeText(getApplicationContext(), "Succefully, saved password", Toast.LENGTH_LONG).show();
+					Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+					startActivity(intent);
+				}
+				else{
+					if (logControl.controlPassword(password)) {
+						Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+						startActivity(intent);
+					}
+					else
+						Toast.makeText(getApplicationContext(), "Wrong password", Toast.LENGTH_LONG).show();
+					
+				}
+				
+				
 			}
 		});
 		
