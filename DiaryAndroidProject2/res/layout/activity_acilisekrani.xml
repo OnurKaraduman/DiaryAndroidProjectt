@@ -7,7 +7,7 @@
     android:orientation="vertical" >
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/txtMonthAndYear"
         android:layout_width="151sp"
         android:layout_height="34sp"
         android:layout_alignLeft="@+id/imageView1"
@@ -24,9 +24,9 @@
         android:id="@+id/textView2"
         android:layout_width="190sp"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView1"
-        android:layout_alignRight="@+id/textView1"
-        android:layout_below="@+id/textView1"
+        android:layout_alignLeft="@+id/txtMonthAndYear"
+        android:layout_alignRight="@+id/txtMonthAndYear"
+        android:layout_below="@+id/txtMonthAndYear"
         android:layout_marginTop="16sp"
         android:fontFamily="Times New Roman"
         android:text="Hazır mısın?"

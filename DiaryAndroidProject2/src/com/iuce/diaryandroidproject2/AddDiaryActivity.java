@@ -10,6 +10,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import com.iuce.control.DiaryOperations;
+import com.iuce.entity.Diary;
 import com.iuce.services.VoiceRecord;
 
 import android.speech.RecognizerIntent;
@@ -37,9 +39,11 @@ import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.CalendarView;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class AddDiaryActivity extends Fragment {
 
@@ -52,6 +56,10 @@ public class AddDiaryActivity extends Fragment {
 	private Button btnOpenCamera;
 	private Button btnOpenGallery;
 	private Button btnRecordVoice;
+	private Button btnCalendarDay;
+	private TextView txtMonthAndYear;
+	private Button btnSpeechToText;
+
 	private static final int SELECT_PICTURE = 1;
 	static final int REQUEST_IMAGE_CAPTURE = 2;
 	private boolean isRecord = false;
@@ -61,12 +69,25 @@ public class AddDiaryActivity extends Fragment {
 	private ImageView imgView;
 	private TextView txtDeneme;
 
-	private Button btnSpeechToText;
-
 	private int RESULT_SPEECH = 3;
 
+	// voice record manager
 	private VoiceRecord vRecord;
+	// Location Manager
 	private LocationManager locManager;
+	private DiaryOperations dOperations;
+
+	private String date;
+	private String title;
+	private String content;
+	private String images;
+	private double longitude;
+	private double latitude;
+	private String photoPath;
+	private String audioPath;
+	private String months[] = { null, "January", "February", "March", "April",
+			"May", "June", "July", "August", "September", "October",
+			"November", "December" };
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -76,6 +97,7 @@ public class AddDiaryActivity extends Fragment {
 		View view = inflater.inflate(R.layout.activity_add_diary, container,
 				false);
 		vRecord = new VoiceRecord();
+		dOperations = new DiaryOperations(getActivity());
 		locManager = (LocationManager) getActivity().getSystemService(
 				getActivity().LOCATION_SERVICE);
 		btnOpenGallery = (Button) view.findViewById(R.id.btnOpenGallery);
@@ -84,6 +106,11 @@ public class AddDiaryActivity extends Fragment {
 		txtDeneme = (TextView) view.findViewById(R.id.txtDetailHoroscopeTitle);
 		btnSpeechToText = (Button) view.findViewById(R.id.btnSpeectToText);
 		btnRecordVoice = (Button) view.findViewById(R.id.btnRecordVoice);
+		btnCalendarDay = (Button) view.findViewById(R.id.btnCalDay);
+		txtMonthAndYear = (TextView) view.findViewById(R.id.txtMonthAndYear);
+		btnSaveDiary = (Button) view.findViewById(R.id.btnSaveDiary);
+		txtTitle = (EditText) view.findViewById(R.id.edttxtTitleAddDiary);
+		txtContent = (EditText) view.findViewById(R.id.edttxtContentAddDiary);
 		btnOpenGallery.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -118,8 +145,53 @@ public class AddDiaryActivity extends Fragment {
 			}
 		});
 		getCurrentLocation();
+		getBundles();
+		btnSaveDiary.setOnClickListener(new OnClickListener() {
 
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				if (txtTitle.getText().equals("")
+						|| txtContent.getText().equals("")) {
+					Toast.makeText(getActivity(),
+							"Enter some text to title or content",
+							Toast.LENGTH_LONG).show();
+				} else {
+					title = txtTitle.getText().toString();
+					content = txtContent.getText().toString();
+					if (saveDiary()) {
+						Toast.makeText(getActivity(), "Saved diary", Toast.LENGTH_LONG).show();
+					}
+					else
+						Toast.makeText(getActivity(), "Error! Something wrong", Toast.LENGTH_LONG).show();
+
+				}
+			}
+		});
+		
 		return view;
+	}
+
+	private boolean saveDiary(){
+		Diary d = new Diary();
+		d.setDate(date);
+		d.setTitle(title);
+		d.setContent(content);
+		d.setLatitude(latitude);
+		d.setLongitude(longitude);
+		d.setAudioPath(audioPath);
+		d.setPhotoPath(photoPath);
+		return dOperations.addDiary(d);
+	} 
+	
+	private void getBundles() {
+		Bundle bundle = this.getArguments();
+		String day = bundle.getString("day");
+		int month = Integer.parseInt(bundle.getString("month"));
+		String year = bundle.getString("year");
+		date = day + "." + month + "." + year;
+		txtMonthAndYear.setText(months[month] + " " + year);
+		btnCalendarDay.setText(day);
 	}
 
 	public void openGallery() {
@@ -155,17 +227,19 @@ public class AddDiaryActivity extends Fragment {
 		} else
 			isRecord = true;
 
-		vRecord.onRecord(isRecord);
+		audioPath = vRecord.onRecord(isRecord);
 	}
 
-	//take current location and assing to text of txtDeneme
+	// take current location and assing to text of txtDeneme
 	public void getCurrentLocation() {
 		LocationListener mLocationListener = new LocationListener() {
 
 			@Override
 			public void onLocationChanged(Location location) {
 				// TODO Auto-generated method stub
-				txtDeneme.setText(String.valueOf(location.getLatitude()));
+				// txtDeneme.setText(String.valueOf(location.getLatitude()));
+				longitude = location.getLongitude();
+				latitude = location.getLatitude();
 			}
 
 			@Override
@@ -202,6 +276,7 @@ public class AddDiaryActivity extends Fragment {
 				selectedImagePath = getPath(selectedImageUri);
 				imgView.setImageURI(selectedImageUri);
 				txtDeneme.setText(selectedImageUri.toString());
+				photoPath = selectedImageUri.toString();
 
 			} else if (requestCode == REQUEST_IMAGE_CAPTURE) {
 				Bundle extras = data.getExtras();
@@ -215,6 +290,7 @@ public class AddDiaryActivity extends Fragment {
 						.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
 				// set text field with return value
 				// txtText.setText(text.get(0));
+
 			}
 		}
 	}
@@ -246,7 +322,7 @@ public class AddDiaryActivity extends Fragment {
 	}
 
 	// fotografýn kaydedilecegi dosyayý oluþtur
-	private static File getOutputMediaFile(int type) {
+	private File getOutputMediaFile(int type) {
 		// To be safe, you should check that the SDCard is mounted
 		// using Environment.getExternalStorageState() before doing this.
 
@@ -281,7 +357,8 @@ public class AddDiaryActivity extends Fragment {
 		} else {
 			return null;
 		}
-
+		// photopath to database
+		photoPath = myPath;
 		return mediaFile;
 	}
 

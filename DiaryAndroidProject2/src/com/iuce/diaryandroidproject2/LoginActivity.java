@@ -34,7 +34,6 @@ public class LoginActivity extends Activity {
 			btnLogin.setText("Save Password");
 			
 		}
-		
 		btnLogin.setOnClickListener(new OnClickListener() {
 			
 			@Override

@@ -24,13 +24,14 @@ public class VoiceRecord {
         
 	}
 
-	public void onRecord(boolean start){
+	public String onRecord(boolean start){
 		if (start) {
 			startRecording();
 		}
 		else
 			stopRecording();
 		
+		return mFileName;
 	}
 	private void startRecording(){
 		

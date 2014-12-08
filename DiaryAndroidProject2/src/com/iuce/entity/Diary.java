@@ -9,7 +9,6 @@ public class Diary {
 	private String date;
 	private String title;
 	private String content;
-	private String[] images;
 	private double longitude;
 	private double latitude;
 	private String photoPath;
@@ -47,13 +46,7 @@ public class Diary {
 		this.content = content;
 	}
 
-	public String[] getImages() {
-		return images;
-	}
 
-	public void setImages(String[] images) {
-		this.images = images;
-	}
 
 	public double getLongitude() {
 		return longitude;

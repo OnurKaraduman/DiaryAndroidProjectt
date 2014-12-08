@@ -27,7 +27,15 @@ public class DateSelectFragment extends Fragment{
 			public void onSelectedDayChange(CalendarView view, int year, int month,
 					int dayOfMonth) {
 				// TODO Auto-generated method stub
-				AddDiaryActivity addDiaryFragment = new AddDiaryActivity();
+				Fragment addDiaryFragment = new AddDiaryActivity();
+				Bundle bundle = new Bundle();
+				String day1 = String.valueOf(dayOfMonth);
+				String month1 = String.valueOf(month);
+				String year1 = String.valueOf(year);
+				bundle.putString("day", day1 );
+				bundle.putString("month", month1 );
+				bundle.putString("year", year1 );
+				addDiaryFragment.setArguments(bundle);
 				getActivity().getFragmentManager().beginTransaction().replace(R.id.content_frame, addDiaryFragment).commit();
 			}
 			
