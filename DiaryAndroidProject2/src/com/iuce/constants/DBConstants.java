@@ -20,6 +20,8 @@ public class DBConstants {
 	public static String DIARY_CONTENT = "content";
 	public static String DIARY_LONGITUDE = "longitude";
 	public static String DIARY_LATITUDE = "latitude";
+	public static String DIARY_PHOTO_PATH = "photoPath";
+	public static String DIARY_AUDIO_PATH = "audioPath";
 
 	// fotolar tablosu kolon isimleri
 	public static String PHOTO_ID = "id";
@@ -31,7 +33,8 @@ public class DBConstants {
 			+ "( " + DIARY_ID + " integer primary key autoincrement, "
 			+ DIARY_TITLE + " text, " + DIARY_CONTENT + " text, " + DIARY_DATE
 			+ " text, " + DIARY_LATITUDE + " float," + DIARY_LONGITUDE
-			+ " float);";
+			+ " float," + DIARY_PHOTO_PATH + " text," + DIARY_AUDIO_PATH
+			+ " text);";
 
 	// foto tablo create
 	public static String CREATE_PHOTO_TABLE = "create table " + PHOTO_TABLE

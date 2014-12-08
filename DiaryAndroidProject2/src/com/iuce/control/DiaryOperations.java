@@ -43,6 +43,8 @@ public class DiaryOperations implements IDiaryOperations {
 		values.put(DBConstants.DIARY_DATE, diary.getDate());
 		values.put(DBConstants.DIARY_LATITUDE, diary.getLatitude());
 		values.put(DBConstants.DIARY_LONGITUDE, diary.getLongitude());
+		values.put(DBConstants.DIARY_PHOTO_PATH, diary.getPhotoPath());
+		values.put(DBConstants.DIARY_AUDIO_PATH, diary.getAudioPath());
 
 		long id = mydb.insert(DBConstants.DIARY_TABLE, null, values);
 		if (id > 0) {
@@ -71,6 +73,8 @@ public class DiaryOperations implements IDiaryOperations {
 		values.put(DBConstants.DIARY_DATE, dateFormat.format(diary.getDate()));
 		values.put(DBConstants.DIARY_LATITUDE, diary.getLatitude());
 		values.put(DBConstants.DIARY_LONGITUDE, diary.getLongitude());
+		values.put(DBConstants.DIARY_PHOTO_PATH, diary.getPhotoPath());
+		values.put(DBConstants.DIARY_AUDIO_PATH, diary.getAudioPath());
 		long update = mydb.update(DBConstants.DIARY_TABLE, values,
 				DBConstants.DIARY_ID + " = " + id, null);
 		if (update > 0) {
@@ -87,7 +91,8 @@ public class DiaryOperations implements IDiaryOperations {
 		Cursor cursor = mydb.query(DBConstants.DIARY_TABLE, new String[] {
 				DBConstants.DIARY_ID, DBConstants.DIARY_TITLE,
 				DBConstants.DIARY_CONTENT, DBConstants.DIARY_DATE,
-				DBConstants.DIARY_LATITUDE, DBConstants.DIARY_LONGITUDE },
+				DBConstants.DIARY_LATITUDE, DBConstants.DIARY_LONGITUDE,
+				DBConstants.DIARY_PHOTO_PATH, DBConstants.DIARY_AUDIO_PATH },
 				null, null, null, null, null);
 		while (cursor.moveToNext()) {
 			Diary diary = new Diary();
@@ -97,6 +102,8 @@ public class DiaryOperations implements IDiaryOperations {
 			diary.setDate(cursor.getString(3));
 			diary.setLatitude(cursor.getFloat(4));
 			diary.setLongitude(cursor.getFloat(5));
+			diary.setPhotoPath(cursor.getString(6));
+			diary.setAudioPath(cursor.getString(7));
 			diaries.add(diary);
 		}
 		cursor.close();
