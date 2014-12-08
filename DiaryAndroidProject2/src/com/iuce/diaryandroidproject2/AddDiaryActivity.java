@@ -59,17 +59,15 @@ public class AddDiaryActivity extends Fragment {
 	private Button btnCalendarDay;
 	private TextView txtMonthAndYear;
 	private Button btnSpeechToText;
-
-	private static final int SELECT_PICTURE = 1;
-	static final int REQUEST_IMAGE_CAPTURE = 2;
-	private boolean isRecord = false;
-	private String selectedImagePath;
-	String filemanagerstring;
-
 	private ImageView imgView;
 	private TextView txtDeneme;
 
+	private static final int SELECT_PICTURE = 1;
+	static final int REQUEST_IMAGE_CAPTURE = 2;
 	private int RESULT_SPEECH = 3;
+	private boolean isRecord = false;
+	private String selectedImagePath;
+	String filemanagerstring;
 
 	// voice record manager
 	private VoiceRecord vRecord;
@@ -151,8 +149,8 @@ public class AddDiaryActivity extends Fragment {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				if (txtTitle.getText().equals("")
-						|| txtContent.getText().equals("")) {
+				//edittext field
+				if (txtTitle.getText().toString().trim().equals("") || txtContent.getText().toString().trim().equals("")) {
 					Toast.makeText(getActivity(),
 							"Enter some text to title or content",
 							Toast.LENGTH_LONG).show();
@@ -160,19 +158,20 @@ public class AddDiaryActivity extends Fragment {
 					title = txtTitle.getText().toString();
 					content = txtContent.getText().toString();
 					if (saveDiary()) {
-						Toast.makeText(getActivity(), "Saved diary", Toast.LENGTH_LONG).show();
-					}
-					else
-						Toast.makeText(getActivity(), "Error! Something wrong", Toast.LENGTH_LONG).show();
+						Toast.makeText(getActivity(), "Saved diary",
+								Toast.LENGTH_LONG).show();
+					} else
+						Toast.makeText(getActivity(), "Error! Something wrong",
+								Toast.LENGTH_LONG).show();
 
 				}
 			}
 		});
-		
+
 		return view;
 	}
 
-	private boolean saveDiary(){
+	private boolean saveDiary() {
 		Diary d = new Diary();
 		d.setDate(date);
 		d.setTitle(title);
@@ -182,8 +181,8 @@ public class AddDiaryActivity extends Fragment {
 		d.setAudioPath(audioPath);
 		d.setPhotoPath(photoPath);
 		return dOperations.addDiary(d);
-	} 
-	
+	}
+
 	private void getBundles() {
 		Bundle bundle = this.getArguments();
 		String day = bundle.getString("day");
@@ -224,9 +223,14 @@ public class AddDiaryActivity extends Fragment {
 	public void onRecord() {
 		if (isRecord) {
 			isRecord = false;
-		} else
-			isRecord = true;
+			btnRecordVoice
+					.setBackgroundResource(R.drawable.ic_btn_audio_record);
 
+		} else {
+			isRecord = true;
+			btnRecordVoice
+					.setBackgroundResource(R.drawable.ic_btn_audio_record);
+		}
 		audioPath = vRecord.onRecord(isRecord);
 	}
 

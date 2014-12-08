@@ -3,46 +3,37 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <TextView
-        android:id="@+id/txtDay"
-        android:layout_width="wrap_content"
-        android:layout_height="48dp"
-        android:layout_x="11dp"
-        android:layout_y="10dp"
-        android:text="TextView" />
-
-    <TextView
-        android:id="@+id/txtMouth"
-        android:layout_width="wrap_content"
-        android:layout_height="51dp"
-        android:layout_x="11dp"
-        android:layout_y="52dp"
-        android:text="TextView" />
-
-    <TextView
-        android:id="@+id/txtContent"
+    <Button
+        android:id="@+id/btnDiaryListDay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_x="109dp"
-        android:layout_y="16dp"
+        android:layout_x="6dp"
+        android:layout_y="4dp"
+        android:background="@drawable/ic_calendar" />
+
+    <TextView
+        android:id="@+id/txtDiaryListMonthYear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="18dp"
+        android:layout_y="90dp"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/txtDiaryListTitle"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_x="97dp"
+        android:layout_y="34dp"
         android:text="Large Text"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
-    <TextView
-        android:id="@+id/txtTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_x="110dp"
-        android:layout_y="52dp"
-        android:text="Medium Text"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
     <Button
-        android:id="@+id/btnDetail"
+        android:id="@+id/btnDiaryListDetail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_x="256dp"
-        android:layout_y="0dp"
+        android:layout_x="252dp"
+        android:layout_y="19dp"
         android:text="@string/btnDiaryDetail" />
 
 </AbsoluteLayout>

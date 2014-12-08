@@ -1,6 +1,7 @@
 package com.iuce.adapters;
 
 import java.util.List;
+import java.util.regex.Pattern;
 
 import com.iuce.diaryandroidproject2.R;
 import com.iuce.entity.Diary;
@@ -14,7 +15,9 @@ import android.widget.Button;
 import android.widget.TextView;
 
 public class DiaryListAdapter extends ArrayAdapter<Diary> {
-
+	private String months[] = { null, "January", "February", "March", "April",
+			"May", "June", "July", "August", "September", "October",
+			"November", "December" };
 	public DiaryListAdapter(Context context, int resource, List<Diary> objects) {
 		super(context, resource, objects);
 		// TODO Auto-generated constructor stub
@@ -34,14 +37,16 @@ public class DiaryListAdapter extends ArrayAdapter<Diary> {
 			myRow = convertView;
 			
 		}
-		TextView txtDay = (TextView) myRow.findViewById(R.id.txtDay);
-		TextView txtMouth = (TextView) myRow.findViewById(R.id.txtMouth);
-		TextView txtTitle = (TextView) myRow.findViewById(R.id.txtTitle);
-		TextView txtContent = (TextView) myRow.findViewById(R.id.txtContent);
-		Button btnDetail = (Button) myRow.findViewById(R.id.btnDetail);
-		
+		TextView txtTitle = (TextView) myRow.findViewById(R.id.txtDiaryListTitle);
+		TextView txtMonthYear = (TextView) myRow.findViewById(R.id.txtDiaryListMonthYear);
+		Button btnDetail = (Button) myRow.findViewById(R.id.btnDiaryListDetail);
+		Button btnDay = (Button) myRow.findViewById(R.id.btnDiaryListDay);
+		String txtDate =  diary.getDate();
+		String[] date =txtDate.split(Pattern.quote("."));
+		btnDay.setText(date[0]);
+		int month = Integer.parseInt(date[1]);
+		txtMonthYear.setText(months[month]+" "+date[2]);
 		txtTitle.setText(diary.getTitle());
-		txtContent.setText(diary.getContent());
 		return myRow;
 	}
 

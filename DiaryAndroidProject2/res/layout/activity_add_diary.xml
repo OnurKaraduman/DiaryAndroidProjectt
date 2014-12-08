@@ -8,30 +8,24 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.iuce.diaryandroidproject2.AddDiaryActivity" >
 
-    <ImageView
-        android:id="@+id/imageView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignRight="@+id/btnOpenCamera"
-        android:layout_marginTop="156dp" />
-
     <Button
         android:id="@+id/btnRecordVoice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/textView2"
-        android:layout_alignRight="@+id/textView2"
-        android:text="@string/btn_record_voice" />
+        android:layout_above="@+id/txtPhotoPath"
+        android:layout_alignRight="@+id/txtPhotoPath"
+        android:layout_toRightOf="@+id/btnSpeectToText"
+        android:background="@drawable/ic_btn_audio_record" />
 
     <Button
         android:id="@+id/btnOpenCamera"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/btnOpenGallery"
         android:layout_alignBottom="@+id/btnOpenGallery"
         android:layout_alignRight="@+id/edttxtTitleAddDiary"
-        android:text="@string/btn_camera_open" />
+        android:layout_alignTop="@+id/btnOpenGallery"
+        android:layout_toRightOf="@+id/txtAudioPath"
+        android:background="@drawable/ic_open_camera" />
 
     <Button
         android:id="@+id/btnOpenGallery"
@@ -39,7 +33,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_toLeftOf="@+id/btnOpenCamera"
-        android:text="@string/btn_gallery_open" />
+        android:background="@drawable/ic_open_gallery2" />
 
     <Button
         android:id="@+id/btnSaveDiary"
@@ -47,16 +41,16 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:text="Save" />
+        android:background="@drawable/ic_add_new_diary" />
 
     <Button
         android:id="@+id/btnSpeectToText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/btnSaveDiary"
         android:layout_alignBottom="@+id/btnSaveDiary"
+        android:layout_alignTop="@+id/btnSaveDiary"
         android:layout_toLeftOf="@+id/btnSaveDiary"
-        android:text="@string/btn_speecth_text" />
+        android:background="@drawable/ic_voice_recognizer" />
 
     <TextView
         android:id="@+id/txtDetailHoroscopeTitle"
@@ -67,7 +61,7 @@
         android:text="TextView" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/txtPhotoPath"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/btnOpenCamera"
@@ -75,7 +69,7 @@
         android:text="TextView" />
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/txtAudioPath"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/btnRecordVoice"
@@ -89,7 +83,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/btnRecordVoice"
         android:layout_alignParentLeft="true"
-        android:layout_alignRight="@+id/imageView1"
+        android:layout_alignParentRight="true"
         android:layout_below="@+id/edttxtTitleAddDiary"
         android:ems="10"
         android:hint="@string/txt_add_content"
@@ -98,21 +92,11 @@
         <requestFocus />
     </EditText>
 
-    <EditText
-        android:id="@+id/edttxtTitleAddDiary"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/imageView1"
-        android:ems="10"
-        android:hint="@string/txt_add_title" />
-
     <Button
         android:id="@+id/btnCalDay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/edttxtTitleAddDiary"
+        android:layout_alignLeft="@+id/edttxtContentAddDiary"
         android:layout_below="@+id/btnSpeectToText"
         android:background="@drawable/ic_calendar"
         android:text="9" />
@@ -123,7 +107,30 @@
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/btnCalDay"
         android:layout_alignBottom="@+id/btnCalDay"
-        android:layout_toLeftOf="@+id/btnRecordVoice"
+        android:layout_toLeftOf="@+id/btnSpeectToText"
         android:text="TextView" />
+
+    <EditText
+        android:id="@+id/edttxtTitleAddDiary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/btnCalDay"
+        android:layout_marginTop="23dp"
+        android:ems="10"
+        android:hint="@string/txt_add_title" />
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/txtDetailHoroscopeTitle"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/txtDetailHoroscopeTitle"
+        android:layout_alignTop="@+id/btnOpenGallery"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="18dp"
+        android:src="@drawable/abc_ab_bottom_solid_dark_holo" />
 
 </RelativeLayout>
