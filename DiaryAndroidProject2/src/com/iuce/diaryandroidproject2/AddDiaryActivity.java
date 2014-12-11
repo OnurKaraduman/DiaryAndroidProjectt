@@ -100,7 +100,7 @@ public class AddDiaryActivity extends Fragment {
 				getActivity().LOCATION_SERVICE);
 		btnOpenGallery = (Button) view.findViewById(R.id.btnOpenGallery);
 		btnOpenCamera = (Button) view.findViewById(R.id.btnOpenCamera);
-		imgView = (ImageView) view.findViewById(R.id.imageView1);
+		imgView = (ImageView) view.findViewById(R.id.imgViewIconHoroscope);
 		txtDeneme = (TextView) view.findViewById(R.id.txtDetailHoroscopeTitle);
 		btnSpeechToText = (Button) view.findViewById(R.id.btnSpeectToText);
 		btnRecordVoice = (Button) view.findViewById(R.id.btnRecordVoice);

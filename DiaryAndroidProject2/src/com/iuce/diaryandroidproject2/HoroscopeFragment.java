@@ -30,6 +30,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 public class HoroscopeFragment extends Fragment {
 
@@ -60,8 +62,8 @@ public class HoroscopeFragment extends Fragment {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				// TODO Auto-generated method stub
-				
-				
+				TextView txt = (TextView) view.findViewById(R.id.txtHoroscopeTitle);
+				Toast.makeText(getActivity(), txt.getText(), Toast.LENGTH_LONG).show();
 			}
           
         });

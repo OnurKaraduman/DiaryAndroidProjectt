@@ -1,5 +1,9 @@
 package com.iuce.diaryandroidproject2;
 
+import com.iuce.control.DiaryOperations;
+import com.iuce.control.IDiaryOperations;
+import com.iuce.entity.Diary;
+
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
@@ -16,6 +20,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class DiaryDetail extends Fragment {
 
@@ -33,6 +38,8 @@ public class DiaryDetail extends Fragment {
 
 	private Button btnSendEmail;
 	private Button btnSendSms;
+	private int diaryID;
+	private IDiaryOperations diaryOperation;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -41,6 +48,13 @@ public class DiaryDetail extends Fragment {
 		// TODO Auto-generated method stub
 		View view = inflater.inflate(R.layout.activity_diary_detail, container,
 				false);
+		diaryOperation = new DiaryOperations(getActivity());
+		Bundle b = this.getArguments();
+		diaryID = b.getInt("id");
+		Diary diary = new Diary();
+		diary = diaryOperation.getDiaryWithId(diaryID);
+		Toast.makeText(getActivity(), diary.getTitle(), Toast.LENGTH_LONG).show();
+				
 		btnSendEmail = (Button) view.findViewById(R.id.btnSendEmail);
 		btnSendSms = (Button) view.findViewById(R.id.btnSendDiarySms);
 		btnSendEmail.setOnClickListener(new OnClickListener() {
@@ -66,6 +80,7 @@ public class DiaryDetail extends Fragment {
 		});
 		return view;
 	}
+	
 
 	private void sendEmail(String to, String subject, String message) {
 		Intent email = new Intent(Intent.ACTION_SEND);

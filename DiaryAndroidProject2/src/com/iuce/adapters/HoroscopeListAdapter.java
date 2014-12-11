@@ -13,6 +13,7 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,16 +21,20 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class HoroscopeListAdapter extends ArrayAdapter<Horoscope> {
 
 	Context context;
+	TypedArray horoscopIcons;
 	public HoroscopeListAdapter(Context context, int resource,
 			List<Horoscope> objects) {
 		super(context, resource, objects);
 		this.context = context;
 		// TODO Auto-generated constructor stub
+		horoscopIcons = context.getResources().obtainTypedArray(R.array.horoscope_icons);
+		
 	}
 
 	@Override
@@ -50,6 +55,8 @@ public class HoroscopeListAdapter extends ArrayAdapter<Horoscope> {
 		}
 		TextView txtTitle = (TextView) myRow
 				.findViewById(R.id.txtHoroscopeTitle);
+		ImageView imgViewIcHoroscop = (ImageView) myRow.findViewById(R.id.imgViewIconHoroscope);
+		imgViewIcHoroscop.setImageResource(horoscopIcons.getResourceId(position, -1));
 		Button btnDetail = (Button) myRow.findViewById(R.id.btnHoroscopeDetail);
 		btnDetail.setOnClickListener(new OnClickListener() {
 

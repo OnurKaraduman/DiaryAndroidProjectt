@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent" 
+    android:descendantFocusability="blocksDescendants">
 
     <TextView
         android:id="@+id/txtHoroscopeTitle"
-        android:layout_width="230dp"
+        android:layout_width="174dp"
         android:layout_height="wrap_content"
-        android:layout_x="0dp"
+        android:layout_x="62dp"
         android:layout_y="11dp"
         android:text="Large Text"
         android:textAppearance="?android:attr/textAppearanceLarge" />
@@ -19,5 +20,13 @@
         android:layout_x="238dp"
         android:layout_y="6dp"
         android:text="@string/btn_horosope_detail" />
+
+    <ImageView
+        android:id="@+id/imgViewIconHoroscope"
+        android:layout_width="39dp"
+        android:layout_height="39dp"
+        android:layout_x="2dp"
+        android:layout_y="3dp"
+        android:src="@drawable/abc_ab_bottom_solid_dark_holo" />
 
 </AbsoluteLayout>

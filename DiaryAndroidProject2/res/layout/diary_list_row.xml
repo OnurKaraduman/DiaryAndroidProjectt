@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent" 
+    android:descendantFocusability="blocksDescendants">
 
     <Button
         android:id="@+id/btnDiaryListDay"
@@ -28,12 +29,12 @@
         android:text="Large Text"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
-    <Button
-        android:id="@+id/btnDiaryListDetail"
+    <TextView
+        android:id="@+id/txtDiaryListId"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_x="252dp"
-        android:layout_y="19dp"
-        android:text="@string/btnDiaryDetail" />
+        android:layout_x="100dp"
+        android:layout_y="81dp"
+        android:visibility="invisible" />
 
 </AbsoluteLayout>

@@ -16,5 +16,6 @@ public interface IDiaryOperations {
 	public boolean updateDiary(int id, Diary diary);
 	public List<Diary> listDiary();
 	public Diary getDiaryWithDate(String date);
+	public Diary getDiaryWithId(int id);
 
 }

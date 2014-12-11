@@ -58,6 +58,20 @@
         <item>@drawable/ic_horoscope</item>
         <item>@drawable/ic_settings</item>
     </array>
+    <array name="horoscope_icons">
+        <item>@drawable/ic_aries</item>
+        <item>@drawable/ic_taurus</item>
+        <item>@drawable/ic_gemini</item>
+        <item>@drawable/ic_cancer</item>
+        <item>@drawable/ic_leo</item>
+        <item>@drawable/ic_virgo</item>
+        <item>@drawable/ic_libra</item>
+        <item>@drawable/ic_scorpio</item>
+        <item>@drawable/ic_sagittarius</item>
+        <item>@drawable/ic_capricorn</item>
+        <item>@drawable/ic_aquarius</item>
+        <item>@drawable/ic_pisces</item>
+    </array>
 
     <!-- Content Description -->
     <string name="desc_list_item_icon">Item Icon</string>

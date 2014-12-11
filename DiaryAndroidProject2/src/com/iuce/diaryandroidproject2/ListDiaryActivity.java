@@ -13,14 +13,18 @@ import com.iuce.entity.Diary;
 
 import android.support.v7.app.ActionBarActivity;
 import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.AdapterView.OnItemClickListener;
 
 public class ListDiaryActivity extends Fragment {
 
@@ -37,6 +41,22 @@ public class ListDiaryActivity extends Fragment {
 		
 		diaryOperation = new DiaryOperations(getActivity());
 		listDiary = (ListView) view.findViewById(R.id.listDiary);
+		listDiary.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				// TODO Auto-generated method stub
+				DiaryDetail ddFragment = new DiaryDetail();
+				Bundle bundle = new Bundle();
+				bundle.putInt("id", Integer.parseInt(((TextView)view.findViewById(R.id.txtDiaryListId)).getText().toString()));
+				ddFragment.setArguments(bundle);
+				FragmentTransaction ft = getFragmentManager().beginTransaction();
+				ft.replace(R.id.content_frame, ddFragment);
+				ft.commit();
+			}
+          
+        });
 		Diary d = new Diary();
 //		d.setTitle("denme");
 //		d.setContent("ilk deneme");

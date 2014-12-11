@@ -39,7 +39,7 @@ public class DiaryListAdapter extends ArrayAdapter<Diary> {
 		}
 		TextView txtTitle = (TextView) myRow.findViewById(R.id.txtDiaryListTitle);
 		TextView txtMonthYear = (TextView) myRow.findViewById(R.id.txtDiaryListMonthYear);
-		Button btnDetail = (Button) myRow.findViewById(R.id.btnDiaryListDetail);
+		TextView txtListDiaryId =(TextView) myRow.findViewById(R.id.txtDiaryListId);
 		Button btnDay = (Button) myRow.findViewById(R.id.btnDiaryListDay);
 		String txtDate =  diary.getDate();
 		String[] date =txtDate.split(Pattern.quote("."));
@@ -47,6 +47,7 @@ public class DiaryListAdapter extends ArrayAdapter<Diary> {
 		int month = Integer.parseInt(date[1]);
 		txtMonthYear.setText(months[month]+" "+date[2]);
 		txtTitle.setText(diary.getTitle());
+		txtListDiaryId.setText(String.valueOf(diary.getId()));
 		return myRow;
 	}
 

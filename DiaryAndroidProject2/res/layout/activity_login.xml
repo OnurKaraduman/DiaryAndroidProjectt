@@ -10,7 +10,7 @@
     tools:context="com.iuce.diaryandroidproject2.LoginActivity" >
 
     <ImageView
-        android:id="@+id/imageView1"
+        android:id="@+id/imgViewIconHoroscope"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_alignParentTop="true"
@@ -23,9 +23,9 @@
         android:id="@+id/edttxtPincode"
         android:layout_width="144dp"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/imageView1"
-        android:layout_alignRight="@+id/imageView1"
-        android:layout_below="@+id/imageView1"
+        android:layout_alignLeft="@+id/imgViewIconHoroscope"
+        android:layout_alignRight="@+id/imgViewIconHoroscope"
+        android:layout_below="@+id/imgViewIconHoroscope"
         android:layout_marginTop="24dp"
         android:background="#ffffff"
         android:ems="10"
@@ -38,7 +38,7 @@
         android:layout_width="100dp"
         android:layout_height="60dp"
         android:layout_alignLeft="@+id/edttxtPincode"
-        android:layout_alignRight="@+id/imageView1"
+        android:layout_alignRight="@+id/imgViewIconHoroscope"
         android:layout_below="@+id/edttxtPincode"
         android:layout_marginTop="19dp"
         android:shadowColor="#A8A8A8"

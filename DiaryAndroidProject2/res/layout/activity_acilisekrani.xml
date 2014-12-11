@@ -10,9 +10,9 @@
         android:id="@+id/txtMonthAndYear"
         android:layout_width="151sp"
         android:layout_height="34sp"
-        android:layout_alignLeft="@+id/imageView1"
-        android:layout_alignRight="@+id/imageView1"
-        android:layout_below="@+id/imageView1"
+        android:layout_alignLeft="@+id/imgViewIconHoroscope"
+        android:layout_alignRight="@+id/imgViewIconHoroscope"
+        android:layout_below="@+id/imgViewIconHoroscope"
         android:layout_marginTop="33sp"
         android:fontFamily="Times New Roman"
         android:text="Her anını yazmaya "
@@ -48,7 +48,7 @@
         android:textStyle="italic" />
 
     <ImageView
-        android:id="@+id/imageView1"
+        android:id="@+id/imgViewIconHoroscope"
         android:layout_width="243sp"
         android:layout_height="285sp"
         android:layout_alignParentTop="true"
