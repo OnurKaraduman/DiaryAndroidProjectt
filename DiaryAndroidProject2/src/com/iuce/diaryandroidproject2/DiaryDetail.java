@@ -20,6 +20,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class DiaryDetail extends Fragment {
@@ -40,6 +42,9 @@ public class DiaryDetail extends Fragment {
 	private Button btnSendSms;
 	private int diaryID;
 	private IDiaryOperations diaryOperation;
+	private TextView txtDiaryDetailTitle;
+	private TextView txtDiaryDetailContent;
+	private ImageView imgDiaryDetailPhoto;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -49,14 +54,14 @@ public class DiaryDetail extends Fragment {
 		View view = inflater.inflate(R.layout.activity_diary_detail, container,
 				false);
 		diaryOperation = new DiaryOperations(getActivity());
-		Bundle b = this.getArguments();
-		diaryID = b.getInt("id");
-		Diary diary = new Diary();
-		diary = diaryOperation.getDiaryWithId(diaryID);
-		Toast.makeText(getActivity(), diary.getTitle(), Toast.LENGTH_LONG).show();
+		
 				
 		btnSendEmail = (Button) view.findViewById(R.id.btnSendEmail);
 		btnSendSms = (Button) view.findViewById(R.id.btnSendDiarySms);
+		txtDiaryDetailTitle = (TextView) view.findViewById(R.id.txtDiaryDetailTitle);
+		txtDiaryDetailContent = (TextView) view.findViewById(R.id.txtDiaryDetailContent);
+		imgDiaryDetailPhoto = (ImageView) view.findViewById(R.id.imageView1);
+		initUpdateForm();
 		btnSendEmail.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -82,6 +87,22 @@ public class DiaryDetail extends Fragment {
 	}
 	
 
+	private void initUpdateForm(){
+		Bundle b = new Bundle();
+		b = getArguments();
+		diaryID = b.getInt("id");
+		Diary diary = new Diary();
+		diary = diaryOperation.getDiaryWithId(diaryID);
+		Toast.makeText(getActivity(), diary.getTitle(), Toast.LENGTH_LONG).show();
+		
+		txtDiaryDetailTitle.setText(diary.getTitle());
+		txtDiaryDetailContent.setText(diary.getContent());
+		if (diary.getPhotoPath() != null) {
+			imgDiaryDetailPhoto.setImageURI(Uri.parse(diary.getPhotoPath()));
+		}
+		
+	}
+	
 	private void sendEmail(String to, String subject, String message) {
 		Intent email = new Intent(Intent.ACTION_SEND);
 		email.putExtra(Intent.EXTRA_EMAIL, new String[] { to });

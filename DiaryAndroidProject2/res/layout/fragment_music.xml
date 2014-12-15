@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
 
     <Switch
         android:id="@+id/swStartStop"
-        android:layout_width="283dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_x="14dp"
         android:layout_y="11dp"
@@ -19,4 +20,37 @@
         android:layout_y="46dp"
         android:text="@string/btn_music_player_open" />
 
-</AbsoluteLayout>
+    <EditText
+        android:id="@+id/edttxtCurrentPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/btn_current_password"
+        android:inputType="textPassword" >
+
+        <requestFocus />
+    </EditText>
+
+    <EditText
+        android:id="@+id/edttxtNewPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/btn_new_password"
+        android:inputType="textPassword" />
+
+    <EditText
+        android:id="@+id/edttxtNewPasswordAgain"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/btn_new_password_again"
+        android:inputType="textPassword" />
+
+    <Button
+        android:id="@+id/btnChangePassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_change_password" />
+
+</LinearLayout>

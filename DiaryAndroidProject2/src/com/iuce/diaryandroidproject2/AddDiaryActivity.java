@@ -6,9 +6,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.regex.Pattern;
 
 import com.iuce.control.DiaryOperations;
 import com.iuce.entity.Diary;
@@ -18,15 +20,20 @@ import android.speech.RecognizerIntent;
 import android.support.v7.app.ActionBarActivity;
 import android.app.Activity;
 import android.app.Fragment;
+import android.app.FragmentTransaction;
+import android.content.CursorLoader;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable.Callback;
 import android.hardware.Camera;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
+import android.opengl.Visibility;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -61,6 +68,8 @@ public class AddDiaryActivity extends Fragment {
 	private Button btnSpeechToText;
 	private ImageView imgView;
 	private TextView txtDeneme;
+	private TextView txtAudioPath;
+	private Button btnDeleteAudio;
 
 	private static final int SELECT_PICTURE = 1;
 	static final int REQUEST_IMAGE_CAPTURE = 2;
@@ -75,6 +84,7 @@ public class AddDiaryActivity extends Fragment {
 	private LocationManager locManager;
 	private DiaryOperations dOperations;
 
+	private int id;
 	private String date;
 	private String title;
 	private String content;
@@ -86,6 +96,9 @@ public class AddDiaryActivity extends Fragment {
 	private String months[] = { null, "January", "February", "March", "April",
 			"May", "June", "July", "August", "September", "October",
 			"November", "December" };
+	private String audioName;
+	private String photoName;
+	private boolean isNew = true;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -100,7 +113,10 @@ public class AddDiaryActivity extends Fragment {
 				getActivity().LOCATION_SERVICE);
 		btnOpenGallery = (Button) view.findViewById(R.id.btnOpenGallery);
 		btnOpenCamera = (Button) view.findViewById(R.id.btnOpenCamera);
+		
 		imgView = (ImageView) view.findViewById(R.id.imgViewIconHoroscope);
+		imgView.setDrawingCacheEnabled(true);
+		
 		txtDeneme = (TextView) view.findViewById(R.id.txtDetailHoroscopeTitle);
 		btnSpeechToText = (Button) view.findViewById(R.id.btnSpeectToText);
 		btnRecordVoice = (Button) view.findViewById(R.id.btnRecordVoice);
@@ -109,6 +125,10 @@ public class AddDiaryActivity extends Fragment {
 		btnSaveDiary = (Button) view.findViewById(R.id.btnSaveDiary);
 		txtTitle = (EditText) view.findViewById(R.id.edttxtTitleAddDiary);
 		txtContent = (EditText) view.findViewById(R.id.edttxtContentAddDiary);
+		txtAudioPath = (TextView) view.findViewById(R.id.txtAudioPath);
+		btnDeleteAudio = (Button) view.findViewById(R.id.btnDeleteAudio);
+		Typeface font = Typeface.createFromAsset(getActivity().getAssets(), "EngineerHand.ttf");
+		txtContent.setTypeface(font);
 		btnOpenGallery.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -142,6 +162,20 @@ public class AddDiaryActivity extends Fragment {
 				onRecord();
 			}
 		});
+		imgView.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				PhotoFragment photoFrag = new PhotoFragment();
+				Bundle b = new Bundle();
+				b.putString("photoPath", photoPath);
+				photoFrag.setArguments(b);
+				FragmentTransaction ft = getActivity().getFragmentManager().beginTransaction();
+				ft.add(R.id.content_frame, photoFrag);
+				ft.commit();
+				
+			}
+		});
 		getCurrentLocation();
 		getBundles();
 		btnSaveDiary.setOnClickListener(new OnClickListener() {
@@ -149,20 +183,36 @@ public class AddDiaryActivity extends Fragment {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				//edittext field
-				if (txtTitle.getText().toString().trim().equals("") || txtContent.getText().toString().trim().equals("")) {
+				// edittext field
+				if (txtTitle.getText().toString().trim().equals("")
+						|| txtContent.getText().toString().trim().equals("")) {
 					Toast.makeText(getActivity(),
 							"Enter some text to title or content",
 							Toast.LENGTH_LONG).show();
 				} else {
 					title = txtTitle.getText().toString();
 					content = txtContent.getText().toString();
-					if (saveDiary()) {
-						Toast.makeText(getActivity(), "Saved diary",
-								Toast.LENGTH_LONG).show();
-					} else
-						Toast.makeText(getActivity(), "Error! Something wrong",
-								Toast.LENGTH_LONG).show();
+					// eger yeni bir tane gunluk eklenecek ise
+					if (isNew) {
+						if (saveDiary()) {
+							Toast.makeText(getActivity(), "Saved diary",
+									Toast.LENGTH_LONG).show();
+						} else
+							Toast.makeText(getActivity(),
+									"Error! Something wrong", Toast.LENGTH_LONG)
+									.show();
+					}
+
+					// eger olan bir gunluk guncellenmek istenirse
+					else {
+						if (updateDiary()) {
+							Toast.makeText(getActivity(), "Updated diary",
+									Toast.LENGTH_LONG).show();
+						} else
+							Toast.makeText(getActivity(),
+									"Error! Something wrong", Toast.LENGTH_LONG)
+									.show();
+					}
 
 				}
 			}
@@ -183,14 +233,59 @@ public class AddDiaryActivity extends Fragment {
 		return dOperations.addDiary(d);
 	}
 
+	private boolean updateDiary() {
+		Diary d = new Diary();
+		d.setDate(date);
+		d.setTitle(title);
+		d.setContent(content);
+		d.setLatitude(latitude);
+		d.setLongitude(longitude);
+		d.setAudioPath(audioPath);
+		d.setPhotoPath(photoPath);
+		return dOperations.updateDiary(id, d);
+	}
+
 	private void getBundles() {
+		String day;
+		int month;
+		String year;
 		Bundle bundle = this.getArguments();
-		String day = bundle.getString("day");
-		int month = Integer.parseInt(bundle.getString("month"));
-		String year = bundle.getString("year");
-		date = day + "." + month + "." + year;
+		boolean isNew = bundle.getBoolean("isNew");
+		this.isNew = isNew;
+		if (isNew) {
+			day = bundle.getString("day");
+			month = Integer.parseInt(bundle.getString("month"));
+			year = bundle.getString("year");
+			date = day + "." + month + "." + year;
+			txtMonthAndYear.setText(months[month] + " " + year);
+			btnCalendarDay.setText(day);
+			btnSaveDiary.setBackgroundResource(R.drawable.ic_add_diary2);
+		} else {
+			id = bundle.getInt("id");
+			date = bundle.getString("date");
+			photoPath = bundle.getString("photoPath");
+			audioPath = bundle.getString("audioPath");
+			date = bundle.getString("date");
+			String[] dateArray = date.split(Pattern.quote("."));
+			day = dateArray[0];
+			month = Integer.parseInt(dateArray[1]);
+			year = dateArray[2];
+			txtTitle.setText(bundle.getString("title"));
+			txtContent.setText(bundle.getString("content"));
+			btnSaveDiary.setBackgroundResource(R.drawable.ic_update);
+			if (photoPath != null) {
+				imgView.setImageURI(Uri.parse(photoPath));
+				imgView.setVisibility(View.VISIBLE);
+			}
+			if (audioPath != null) {
+				txtAudioPath.setText(audioPath);
+				btnDeleteAudio.setVisibility(View.VISIBLE);
+			}
+
+		}
 		txtMonthAndYear.setText(months[month] + " " + year);
 		btnCalendarDay.setText(day);
+
 	}
 
 	public void openGallery() {
@@ -273,14 +368,23 @@ public class AddDiaryActivity extends Fragment {
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (resultCode == getActivity().RESULT_OK) {
 			if (requestCode == SELECT_PICTURE) {
-				Uri selectedImageUri = data.getData();
+				// Uri selectedImageUri = data.getData();
 
-				filemanagerstring = selectedImageUri.getPath();
+				// System.out.println(filemanagerstring);
+				Uri selectedImageU = data.getData();
+				System.out.println("-----" + selectedImageU.toString());
+				String pathImage = getRealPathFromURI(selectedImageU);
+				photoPath = pathImage;
+				System.out.println("--------" + pathImage);
+				imgView.setImageURI(Uri.parse(photoPath));
+				imgView.setVisibility(View.VISIBLE);
 
-				selectedImagePath = getPath(selectedImageUri);
-				imgView.setImageURI(selectedImageUri);
-				txtDeneme.setText(selectedImageUri.toString());
-				photoPath = selectedImageUri.toString();
+				// filemanagerstring = selectedImageUri.getPath();
+				// String path = getRealPathFromURI(selectedImageUri);
+				// selectedImagePath = getPath(selectedImageUri);
+				// imgView.setImageURI(Uri.parse(path));
+				// // imgView.setVisibility(View.VISIBLE);
+				// photoPath = path;
 
 			} else if (requestCode == REQUEST_IMAGE_CAPTURE) {
 				Bundle extras = data.getExtras();
@@ -288,6 +392,7 @@ public class AddDiaryActivity extends Fragment {
 				byte[] imageData = convertBitmapToByteArray(imageBitmap);
 				onPictureTaken(imageData);
 				imgView.setImageBitmap(imageBitmap);
+				imgView.setVisibility(View.VISIBLE);
 
 			} else if (requestCode == RESULT_SPEECH) {
 				ArrayList<String> text = data
@@ -297,6 +402,27 @@ public class AddDiaryActivity extends Fragment {
 
 			}
 		}
+	}
+
+	// gerçek resim yolunu uriden yola çeviriyoruz
+	public String getRealPathFromURI(Uri contentUri) {
+		String[] proj = { MediaStore.Images.Media.DATA };
+		String result = null;
+
+		// CursorLoader cursorLoader = new CursorLoader(
+		// null);
+		CursorLoader cursorLoader = new CursorLoader(getActivity(), contentUri,
+				proj, null, null, null);
+		Cursor cursor = cursorLoader.loadInBackground();
+
+		if (cursor != null) {
+			int column_index = cursor
+					.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+			cursor.moveToFirst();
+			result = cursor.getString(column_index);
+		}
+
+		return result;
 	}
 
 	private String getPath(Uri uri) {
@@ -362,6 +488,7 @@ public class AddDiaryActivity extends Fragment {
 			return null;
 		}
 		// photopath to database
+		photoName = File.separator + "IMG_" + timeStamp + ".jpg";
 		photoPath = myPath;
 		return mediaFile;
 	}
@@ -393,4 +520,5 @@ public class AddDiaryActivity extends Fragment {
 		}
 
 	}
+
 }

@@ -77,5 +77,11 @@
     <string name="desc_list_item_icon">Item Icon</string>
     <string name="txt_add_title">Title</string>
     <string name="txt_add_content">What you are thinking</string>
+    <string name="btn_diary_list_delete">Delete</string>
+    <string name="btn_diary_detail_update">Update</string>
+    <string name="btn_current_password">Current Password</string>
+    <string name="btn_new_password">New Password</string>
+    <string name="btn_new_password_again">New Password Again</string>
+    <string name="btn_change_password">Change Password</string>
 
 </resources>

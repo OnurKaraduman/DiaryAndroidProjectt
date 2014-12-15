@@ -62,4 +62,15 @@ public class LoginControl implements ILoginControl {
 		}
 	}
 
+	@Override
+	public boolean changePassword(String currentPassword, String newPassword) {
+		// TODO Auto-generated method stub
+		String currentPass = preferences.getString(PASSWORD_TAG, null).toString();
+		if (currentPass.equals(currentPassword)) {
+			resetPassword(newPassword);
+			return true;
+		}
+		return false;
+	}
+
 }

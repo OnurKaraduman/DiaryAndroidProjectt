@@ -70,7 +70,7 @@ public class DiaryOperations implements IDiaryOperations {
 		ContentValues values = new ContentValues();
 		values.put(DBConstants.DIARY_TITLE, diary.getTitle());
 		values.put(DBConstants.DIARY_CONTENT, diary.getContent());
-		values.put(DBConstants.DIARY_DATE, dateFormat.format(diary.getDate()));
+		values.put(DBConstants.DIARY_DATE, diary.getDate());
 		values.put(DBConstants.DIARY_LATITUDE, diary.getLatitude());
 		values.put(DBConstants.DIARY_LONGITUDE, diary.getLongitude());
 		values.put(DBConstants.DIARY_PHOTO_PATH, diary.getPhotoPath());
@@ -109,13 +109,34 @@ public class DiaryOperations implements IDiaryOperations {
 		cursor.close();
 		return diaries;
 	}
-	
-	
+
 	@Override
 	public Diary getDiaryWithDate(String date) {
 		// TODO Auto-generated method stub
-		
-		return null;
+
+		Diary diary = new Diary();
+		Cursor cursor = mydb.query(DBConstants.DIARY_TABLE, new String[] {
+				DBConstants.DIARY_ID, DBConstants.DIARY_TITLE,
+				DBConstants.DIARY_CONTENT, DBConstants.DIARY_DATE,
+				DBConstants.DIARY_LATITUDE, DBConstants.DIARY_LONGITUDE,
+				DBConstants.DIARY_PHOTO_PATH, DBConstants.DIARY_AUDIO_PATH },
+				"diaryDate=?", new String[] { date }, null, null, null, null);
+
+		System.out.println("Tarih-<>>>>>>>>>>>>>>>>"+date);
+		if (!cursor.moveToFirst()) {
+			return null;
+		}
+		diary.setId(cursor.getInt(0));
+		diary.setTitle(cursor.getString(1));
+		diary.setContent(cursor.getString(2));
+		diary.setDate(cursor.getString(3));
+		diary.setLatitude(cursor.getFloat(4));
+		diary.setLongitude(cursor.getFloat(5));
+		diary.setPhotoPath(cursor.getString(6));
+		diary.setAudioPath(cursor.getString(7));
+
+		cursor.close();
+		return diary;
 	}
 
 	@Override
@@ -126,20 +147,22 @@ public class DiaryOperations implements IDiaryOperations {
 				DBConstants.DIARY_ID, DBConstants.DIARY_TITLE,
 				DBConstants.DIARY_CONTENT, DBConstants.DIARY_DATE,
 				DBConstants.DIARY_LATITUDE, DBConstants.DIARY_LONGITUDE,
-				DBConstants.DIARY_PHOTO_PATH, DBConstants.DIARY_AUDIO_PATH },DBConstants.DIARY_ID + "=?",
-	            new String[] { String.valueOf(id) }, null, null, null, null);
-		while (cursor.moveToNext()) {
-			
-			diary.setId(cursor.getInt(0));
-			diary.setTitle(cursor.getString(1));
-			diary.setContent(cursor.getString(2));
-			diary.setDate(cursor.getString(3));
-			diary.setLatitude(cursor.getFloat(4));
-			diary.setLongitude(cursor.getFloat(5));
-			diary.setPhotoPath(cursor.getString(6));
-			diary.setAudioPath(cursor.getString(7));
-			
+				DBConstants.DIARY_PHOTO_PATH, DBConstants.DIARY_AUDIO_PATH },
+				"id="+id, null, null, null, null);
+
+		System.out.println("Tarih-<>>>>>>>>>>>>>>>>"+id);
+		if (!cursor.moveToFirst()) {
+			return null;
 		}
+		diary.setId(cursor.getInt(0));
+		diary.setTitle(cursor.getString(1));
+		diary.setContent(cursor.getString(2));
+		diary.setDate(cursor.getString(3));
+		diary.setLatitude(cursor.getFloat(4));
+		diary.setLongitude(cursor.getFloat(5));
+		diary.setPhotoPath(cursor.getString(6));
+		diary.setAudioPath(cursor.getString(7));
+
 		cursor.close();
 		return diary;
 	}
