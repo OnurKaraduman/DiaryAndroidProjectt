@@ -84,4 +84,7 @@ public class VoiceRecord {
 		}
 		return false;
 	}
+	public void stopPlaying(){
+		player.stop();
+	}
 }

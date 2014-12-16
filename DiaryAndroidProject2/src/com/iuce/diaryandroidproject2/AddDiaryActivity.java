@@ -100,6 +100,7 @@ public class AddDiaryActivity extends Fragment {
 	private String audioName;
 	private String photoName;
 	private boolean isNew = true;
+	private boolean isStartedPlaying = false;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -162,7 +163,7 @@ public class AddDiaryActivity extends Fragment {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stuba
-				
+
 				onRecord();
 			}
 		});
@@ -177,6 +178,7 @@ public class AddDiaryActivity extends Fragment {
 				FragmentTransaction ft = getActivity().getFragmentManager()
 						.beginTransaction();
 				ft.add(R.id.content_frame, photoFrag);
+				ft.addToBackStack(null);
 				ft.commit();
 
 			}
@@ -235,7 +237,8 @@ public class AddDiaryActivity extends Fragment {
 					txtAudioPath.setText("No record");
 					btnDeleteAudio.setVisibility(View.INVISIBLE);
 					btnPlayAudio.setVisibility(View.INVISIBLE);
-					//ses kaydýný sildikten sonra yeniden voiceRecord nesnesi oluþturalim
+					// ses kaydýný sildikten sonra yeniden voiceRecord nesnesi
+					// oluþturalim
 					vRecord = new VoiceRecord();
 				} else
 					Toast.makeText(getActivity(), "Error! couldnt be deleted",
@@ -248,7 +251,7 @@ public class AddDiaryActivity extends Fragment {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				vRecord.startPlaying();
+				onStartPlayAudio();
 			}
 		});
 		return view;
@@ -348,6 +351,18 @@ public class AddDiaryActivity extends Fragment {
 		startActivityForResult(intRecognize, RESULT_SPEECH);
 	}
 
+	public void onStartPlayAudio() {
+		if (isStartedPlaying) {
+			vRecord.stopPlaying();
+			isStartedPlaying = false;
+			btnPlayAudio.setBackgroundResource(R.drawable.ic_play);
+		} else {
+			vRecord.startPlaying();
+			isStartedPlaying = true;
+			btnPlayAudio.setBackgroundResource(R.drawable.ic_stop_play);
+		}
+	}
+
 	public void onRecord() {
 		if (btnDeleteAudio.getVisibility() == View.INVISIBLE) {
 			if (isRecord) {
@@ -366,9 +381,9 @@ public class AddDiaryActivity extends Fragment {
 
 			}
 			audioPath = vRecord.onRecord(isRecord);
-		}
-		else
-			Toast.makeText(getActivity(), "Just one record please", Toast.LENGTH_LONG).show();
+		} else
+			Toast.makeText(getActivity(), "Just one record please",
+					Toast.LENGTH_LONG).show();
 
 	}
 
