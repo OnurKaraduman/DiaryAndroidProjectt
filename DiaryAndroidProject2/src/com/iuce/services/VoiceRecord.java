@@ -1,5 +1,7 @@
 package com.iuce.services;
 
+import java.io.File;
+
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.media.MediaRecorder;
@@ -53,10 +55,9 @@ public class VoiceRecord {
 		mRecorder.stop();
 		mRecorder.release();
 		mRecorder = null;
-		startPlaying();
 	}
 
-	private void startPlaying() {
+	public void startPlaying() {
 		player = new MediaPlayer();
 		player.setVolume(1.0f, 1.0f);
 		try {
@@ -74,5 +75,13 @@ public class VoiceRecord {
 			});
 		} catch (Exception e) {
 		}
+	}
+	public boolean deleteRecord(){
+		File file = new File(mFileName);
+		boolean deleted = file.delete();
+		if (deleted) {
+			return true;
+		}
+		return false;
 	}
 }

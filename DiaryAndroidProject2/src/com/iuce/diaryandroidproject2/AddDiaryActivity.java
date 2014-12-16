@@ -70,6 +70,7 @@ public class AddDiaryActivity extends Fragment {
 	private TextView txtDeneme;
 	private TextView txtAudioPath;
 	private Button btnDeleteAudio;
+	private Button btnPlayAudio;
 
 	private static final int SELECT_PICTURE = 1;
 	static final int REQUEST_IMAGE_CAPTURE = 2;
@@ -113,10 +114,10 @@ public class AddDiaryActivity extends Fragment {
 				getActivity().LOCATION_SERVICE);
 		btnOpenGallery = (Button) view.findViewById(R.id.btnOpenGallery);
 		btnOpenCamera = (Button) view.findViewById(R.id.btnOpenCamera);
-		
+
 		imgView = (ImageView) view.findViewById(R.id.imgViewIconHoroscope);
 		imgView.setDrawingCacheEnabled(true);
-		
+
 		txtDeneme = (TextView) view.findViewById(R.id.txtDetailHoroscopeTitle);
 		btnSpeechToText = (Button) view.findViewById(R.id.btnSpeectToText);
 		btnRecordVoice = (Button) view.findViewById(R.id.btnRecordVoice);
@@ -127,7 +128,9 @@ public class AddDiaryActivity extends Fragment {
 		txtContent = (EditText) view.findViewById(R.id.edttxtContentAddDiary);
 		txtAudioPath = (TextView) view.findViewById(R.id.txtAudioPath);
 		btnDeleteAudio = (Button) view.findViewById(R.id.btnDeleteAudio);
-		Typeface font = Typeface.createFromAsset(getActivity().getAssets(), "EngineerHand.ttf");
+		btnPlayAudio = (Button) view.findViewById(R.id.btnPlayAudio);
+		Typeface font = Typeface.createFromAsset(getActivity().getAssets(),
+				"EngineerHand.ttf");
 		txtContent.setTypeface(font);
 		btnOpenGallery.setOnClickListener(new OnClickListener() {
 
@@ -159,21 +162,23 @@ public class AddDiaryActivity extends Fragment {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stuba
+				
 				onRecord();
 			}
 		});
 		imgView.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				PhotoFragment photoFrag = new PhotoFragment();
 				Bundle b = new Bundle();
 				b.putString("photoPath", photoPath);
 				photoFrag.setArguments(b);
-				FragmentTransaction ft = getActivity().getFragmentManager().beginTransaction();
+				FragmentTransaction ft = getActivity().getFragmentManager()
+						.beginTransaction();
 				ft.add(R.id.content_frame, photoFrag);
 				ft.commit();
-				
+
 			}
 		});
 		getCurrentLocation();
@@ -217,7 +222,35 @@ public class AddDiaryActivity extends Fragment {
 				}
 			}
 		});
+		btnDeleteAudio.setOnClickListener(new OnClickListener() {
 
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				boolean deleted = vRecord.deleteRecord();
+				if (deleted) {
+					Toast.makeText(getActivity(), "Deleted audio",
+							Toast.LENGTH_LONG).show();
+					audioPath = null;
+					txtAudioPath.setText("No record");
+					btnDeleteAudio.setVisibility(View.INVISIBLE);
+					btnPlayAudio.setVisibility(View.INVISIBLE);
+					//ses kaydýný sildikten sonra yeniden voiceRecord nesnesi oluþturalim
+					vRecord = new VoiceRecord();
+				} else
+					Toast.makeText(getActivity(), "Error! couldnt be deleted",
+							Toast.LENGTH_LONG).show();
+			}
+		});
+
+		btnPlayAudio.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				vRecord.startPlaying();
+			}
+		});
 		return view;
 	}
 
@@ -316,17 +349,27 @@ public class AddDiaryActivity extends Fragment {
 	}
 
 	public void onRecord() {
-		if (isRecord) {
-			isRecord = false;
-			btnRecordVoice
-					.setBackgroundResource(R.drawable.ic_btn_audio_record);
+		if (btnDeleteAudio.getVisibility() == View.INVISIBLE) {
+			if (isRecord) {
+				isRecord = false;
+				btnRecordVoice
+						.setBackgroundResource(R.drawable.ic_btn_audio_record);
+				txtAudioPath.setText("1 record saved");
+				btnDeleteAudio.setVisibility(View.VISIBLE);
+				btnPlayAudio.setVisibility(View.VISIBLE);
 
-		} else {
-			isRecord = true;
-			btnRecordVoice
-					.setBackgroundResource(R.drawable.ic_btn_audio_record);
+			} else {
+				isRecord = true;
+				btnRecordVoice
+						.setBackgroundResource(R.drawable.ic_btn_audio_record_start);
+				txtAudioPath.setText("recording.....");
+
+			}
+			audioPath = vRecord.onRecord(isRecord);
 		}
-		audioPath = vRecord.onRecord(isRecord);
+		else
+			Toast.makeText(getActivity(), "Just one record please", Toast.LENGTH_LONG).show();
+
 	}
 
 	// take current location and assing to text of txtDeneme
