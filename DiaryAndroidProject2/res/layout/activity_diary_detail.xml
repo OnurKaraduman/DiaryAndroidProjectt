@@ -27,42 +27,6 @@
         android:layout_toLeftOf="@+id/btnSendEmail"
         android:text="@string/btn_send_diary_sms" />
 
-    <Button
-        android:id="@+id/btnUpdateFragment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_toLeftOf="@+id/button2"
-        android:text="@string/btn_diary_detail_update" />
-
-    <Button
-        android:id="@+id/button2"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_toLeftOf="@+id/btnSendEmail"
-        android:text="@string/btn_diary_list_delete" />
-
-    <TextView
-        android:id="@+id/txtDiaryDetailTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/button2"
-        android:layout_below="@+id/button2"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="21dp"
-        android:text="Large Text"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <TextView
-        android:id="@+id/txtDiaryDetailContent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/txtDiaryDetailTitle"
-        android:text="Large Text"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
     <ImageView
         android:id="@+id/imageView1"
         android:layout_width="wrap_content"
@@ -88,5 +52,69 @@
         android:layout_alignBottom="@+id/button3"
         android:layout_toRightOf="@+id/btnSendDiarySms"
         android:text="TextView" />
-   
+
+    <TextView
+        android:id="@+id/txtDiaryDetailTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="17dp"
+        android:layout_marginTop="142dp"
+        android:text="Large Text"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/txtDiaryDetailContent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/linearLayout2"
+        android:layout_marginLeft="17dp"
+        android:text="Large Text"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/edit_text_shape" >
+
+        <Button
+            android:id="@+id/btnCalDay"
+            android:layout_width="47dp"
+            android:layout_height="40dp"
+            android:background="@drawable/ic_calendar"
+            android:text="9" />
+
+        <TextView
+            android:id="@+id/txtMonthAndYear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView" />
+
+        <Button
+            android:id="@+id/btnSaveDiary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_add_diary2" />
+
+        <Button
+            android:id="@+id/btnUpdateFragment"
+            android:layout_width="44dp"
+            android:layout_height="wrap_content"
+            android:text="@string/btn_diary_detail_update" />
+
+        <Button
+            android:id="@+id/button2"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="17dp"
+            android:text="@string/btn_diary_list_delete" />
+    </LinearLayout>
+
 </RelativeLayout>

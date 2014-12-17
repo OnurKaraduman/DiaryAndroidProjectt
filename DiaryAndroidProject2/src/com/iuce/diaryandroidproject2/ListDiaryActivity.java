@@ -47,12 +47,13 @@ public class ListDiaryActivity extends Fragment {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				// TODO Auto-generated method stub
-				DiaryDetail ddFragment = new DiaryDetail();
+				AddDiaryActivity addDiaryAct = new AddDiaryActivity();
 				Bundle bundle = new Bundle();
 				bundle.putInt("id", Integer.parseInt(((TextView)view.findViewById(R.id.txtDiaryListId)).getText().toString()));
-				ddFragment.setArguments(bundle);
+				bundle.putBoolean("isNew", false);
+				addDiaryAct.setArguments(bundle);
 				FragmentTransaction ft = getFragmentManager().beginTransaction();
-				ft.replace(R.id.content_frame, ddFragment);
+				ft.replace(R.id.content_frame, addDiaryAct);
 				ft.commit();
 			}
           

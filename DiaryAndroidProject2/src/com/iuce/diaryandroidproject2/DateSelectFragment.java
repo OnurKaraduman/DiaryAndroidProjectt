@@ -63,13 +63,6 @@ public class DateSelectFragment extends Fragment {
 					Bundle b = new Bundle();
 					bundle.putBoolean("isNew", false);
 					b.putInt("id", diary.getId());
-					b.putString("title", diary.getTitle());
-					b.putString("content", diary.getContent());
-					b.putString("date", diary.getDate());
-					b.putDouble("longitude", diary.getLongitude());
-					b.putDouble("latitude", diary.getLatitude());
-					b.putString("photoPath", diary.getPhotoPath());
-					b.putString("audioPath", diary.getAudioPath());
 					addDiaryFragment.setArguments(b);
 
 				}

@@ -33,7 +33,7 @@ public class AcilisActivity extends Activity {
 		public void run() {
 			try {
 				// Sleeping
-				Thread.sleep(SLEEP_TIME * 1000);
+				Thread.sleep(SLEEP_TIME * 500);
 			} catch (Exception e) {
 				Log.e(TAG, e.getMessage());
 			}

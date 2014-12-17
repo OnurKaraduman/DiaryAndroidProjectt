@@ -34,7 +34,6 @@ public class PhotoFragment extends Fragment{
 						
 				FragmentManager fManager = getActivity().getFragmentManager();
 				fManager.popBackStackImmediate();
-				
 			}
 		});
 		return view;

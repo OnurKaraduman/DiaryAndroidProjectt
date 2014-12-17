@@ -190,7 +190,9 @@ public class MainActivity extends ActionBarActivity {
 		case 4:
 			fragment = new DiaryDetail();
 			break;
-
+		case 5: 
+			
+			fragment = new PaintFragment();
 		default:
 			break;
 		}

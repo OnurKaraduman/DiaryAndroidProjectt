@@ -24,6 +24,7 @@
         <item>Music</item>
         <item>Horoscopes</item>
         <item>Diary Detail</item>
+   
     </string-array>
 
     <string name="btn_horosope_detail">Read</string>
@@ -46,7 +47,7 @@
         <item>Horoscopes</item>
         <item>Diary Detail</item>
         <item>Settings</item>
-        <item>Log Out</item>
+        <item>Paint</item>
     </string-array>
 
     <!-- Nav Drawer List Item Icons -->
@@ -57,6 +58,7 @@
         <item>@drawable/ic_horoscope</item>
         <item>@drawable/ic_horoscope</item>
         <item>@drawable/ic_settings</item>
+        <item>@drawable/ic_add_diary</item>
     </array>
     <array name="horoscope_icons">
         <item>@drawable/ic_aries</item>
@@ -83,5 +85,11 @@
     <string name="btn_new_password">New Password</string>
     <string name="btn_new_password_again">New Password Again</string>
     <string name="btn_change_password">Change Password</string>
+    <string name="brush">Brush</string>
+    <string name="save">Save</string>
+    <string name="paint">Paint</string>
+    <string name="sml">Small</string>
+    <string name="med">Medium</string>
+    <string name="lrg">Large</string>
 
 </resources>
