@@ -11,6 +11,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.os.Bundle;
@@ -22,6 +23,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
 public class MainActivity extends ActionBarActivity {
@@ -79,8 +81,6 @@ public class MainActivity extends ActionBarActivity {
 		navDrawerItems.add(new NavigationMenuItem(navMenuTitles[4],
 				navMenuIcons.getResourceId(4, -1)));
 		// What's hot, We will add a counter here
-		navDrawerItems.add(new NavigationMenuItem(navMenuTitles[5],
-				navMenuIcons.getResourceId(5, -1), true, "50+"));
 
 		// Recycle the typed array
 		navMenuIcons.recycle();
@@ -188,11 +188,10 @@ public class MainActivity extends ActionBarActivity {
 			fragment = new MusicFragment();
 			break;
 		case 4:
-			fragment = new DiaryDetail();
+			Intent i = new Intent(MainActivity.this, LoginActivity.class);
+			startActivity(i);
 			break;
-		case 5: 
-			
-			fragment = new PaintFragment();
+
 		default:
 			break;
 		}
@@ -236,6 +235,11 @@ public class MainActivity extends ActionBarActivity {
 		super.onConfigurationChanged(newConfig);
 		// Pass any configuration change to the drawer toggls
 		mDrawerToggle.onConfigurationChanged(newConfig);
+	}
+
+	@Override
+	public void onBackPressed() {
+		// TODO Auto-generated method stub
 	}
 
 }

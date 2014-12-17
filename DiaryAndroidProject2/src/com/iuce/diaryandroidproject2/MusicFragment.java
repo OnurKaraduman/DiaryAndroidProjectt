@@ -1,5 +1,6 @@
 package com.iuce.diaryandroidproject2;
 
+import com.iuce.constants.DBConstants;
 import com.iuce.control.ILoginControl;
 import com.iuce.control.LoginControl;
 import com.iuce.services.MusicService;
@@ -45,6 +46,9 @@ public class MusicFragment extends Fragment {
 		txtCurrentPassword = (EditText) view.findViewById(R.id.edttxtCurrentPassword);
 		txtNewPassword = (EditText) view.findViewById(R.id.edttxtNewPassword);
 		txtNewPasswordAgain = (EditText) view.findViewById(R.id.edttxtNewPasswordAgain);
+		if (DBConstants.musicPlaying) {
+			swStartStop.setChecked(true);
+		}
 		
 		//open background default music
 		swStartStop.setOnCheckedChangeListener(new OnCheckedChangeListener() {
@@ -55,8 +59,15 @@ public class MusicFragment extends Fragment {
 				// TODO Auto-generated method stub
 				if (isChecked) {
 					initMusicService();
+					DBConstants.musicPlaying = true;
 				} else {
-					getActivity().stopService(mIntent);
+					try {
+						getActivity().stopService(mIntent);
+						DBConstants.musicPlaying = false;
+					} catch (Exception e) {
+						// TODO: handle exception
+					}
+					
 				}
 			}
 		});

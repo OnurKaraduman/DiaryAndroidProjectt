@@ -21,12 +21,14 @@ import com.iuce.adapters.HoroscopeListAdapter;
 import com.iuce.entity.Horoscope;
 
 import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
@@ -39,6 +41,8 @@ public class HoroscopeFragment extends Fragment {
 	private ListView listViewHoroscopes;
 	List<Horoscope> horoscopes;
 	HoroscopeListAdapter hAdapter;
+	protected String HOROSCOPE_TITLE = "title";
+	protected String HOROSCOPE_DESCRIPTION = "description";
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -62,11 +66,31 @@ public class HoroscopeFragment extends Fragment {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				// TODO Auto-generated method stub
-				TextView txt = (TextView) view.findViewById(R.id.txtHoroscopeTitle);
-				Toast.makeText(getActivity(), txt.getText(), Toast.LENGTH_LONG).show();
+				// TextView txt = (TextView) view
+				// .findViewById(R.id.txtHoroscopeTitle);
+				// Toast.makeText(getActivity(), txt.getText(),
+				// Toast.LENGTH_LONG)
+				// .show();3
+				TextView txtTitle = (TextView) view
+						.findViewById(R.id.txtHoroscopeTitle);
+				TextView txtDescription = (TextView) view
+						.findViewById(R.id.txtHoroscopeDescription);
+
+				Bundle b = new Bundle();
+				b.putString(HOROSCOPE_TITLE, txtTitle.getText().toString());
+				b.putString(HOROSCOPE_DESCRIPTION, txtDescription.getText()
+						.toString());
+				HoroscopDetailActivity hDetail = new HoroscopDetailActivity();
+				hDetail.setArguments(b);
+				FragmentTransaction ft = getActivity().getFragmentManager()
+						.beginTransaction();
+
+				ft.add(R.id.content_frame, hDetail);
+				ft.addToBackStack(null);
+				ft.commit();
 			}
-          
-        });
+
+		});
 		return view;
 	}
 
@@ -93,7 +117,7 @@ public class HoroscopeFragment extends Fragment {
 			progDialog.dismiss();
 			synchronized (hAdapter) {
 				hAdapter.notifyDataSetChanged();
-				
+
 			}
 		}
 
@@ -133,10 +157,12 @@ public class HoroscopeFragment extends Fragment {
 
 						// String
 						String txtTitle = ((Node) title.item(0)).getNodeValue();
+						txtTitle  = txtTitle.substring(0,txtTitle.indexOf(' '));
 
 						String txtDescription = ((Node) description.item(0))
 								.getNodeValue();
-						
+//						txtDescription = txtDescription.substring(0, txtDescription.indexOf("\n"));
+
 						h.setTitle(txtTitle);
 						h.setDescription(txtDescription);
 						horoscopes.add(h);

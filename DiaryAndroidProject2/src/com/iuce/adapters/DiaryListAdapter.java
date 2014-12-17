@@ -7,6 +7,7 @@ import com.iuce.diaryandroidproject2.R;
 import com.iuce.entity.Diary;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,6 +41,7 @@ public class DiaryListAdapter extends ArrayAdapter<Diary> {
 		TextView txtTitle = (TextView) myRow.findViewById(R.id.txtDiaryListTitle);
 		TextView txtMonthYear = (TextView) myRow.findViewById(R.id.txtDiaryListMonthYear);
 		TextView txtListDiaryId =(TextView) myRow.findViewById(R.id.txtDiaryListId);
+		
 		Button btnDay = (Button) myRow.findViewById(R.id.btnDiaryListDay);
 		String txtDate =  diary.getDate();
 		String[] date =txtDate.split(Pattern.quote("."));

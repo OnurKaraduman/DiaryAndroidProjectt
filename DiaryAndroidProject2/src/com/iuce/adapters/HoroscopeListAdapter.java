@@ -14,6 +14,7 @@ import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.TypedArray;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -55,28 +56,14 @@ public class HoroscopeListAdapter extends ArrayAdapter<Horoscope> {
 		}
 		TextView txtTitle = (TextView) myRow
 				.findViewById(R.id.txtHoroscopeTitle);
+		TextView txtDescription = (TextView) myRow.findViewById(R.id.txtHoroscopeDescription);
 		ImageView imgViewIcHoroscop = (ImageView) myRow.findViewById(R.id.imgViewIconHoroscope);
 		imgViewIcHoroscop.setImageResource(horoscopIcons.getResourceId(position, -1));
-		Button btnDetail = (Button) myRow.findViewById(R.id.btnHoroscopeDetail);
-		btnDetail.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				
-				Bundle b = new Bundle();
-				b.putString("title", horoscope.getTitle());
-				b.putString("description", horoscope.getDescription());
-				
-				HoroscopDetailActivity hFragment = new HoroscopDetailActivity();
-				hFragment.setArguments(b);
-				ft.add(R.id.content_frame, hFragment);
-//				ft.addToBackStack(null);
-				
-				ft.commit();
-			}
-		});
+		Typeface font = Typeface.createFromAsset(((Activity)context).getAssets(),
+				"EngineerHand.ttf");
+		txtTitle.setTypeface(font);
 		txtTitle.setText(horoscope.getTitle());
+		txtDescription.setText(horoscope.getDescription());
 		return myRow;
 	}
 

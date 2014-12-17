@@ -45,9 +45,8 @@
         <item>Home</item>
         <item>New Diary</item>
         <item>Horoscopes</item>
-        <item>Diary Detail</item>
         <item>Settings</item>
-        <item>Paint</item>
+        <item>Log Out</item>
     </string-array>
 
     <!-- Nav Drawer List Item Icons -->
@@ -56,9 +55,8 @@
         <item>@drawable/ic_home</item>
         <item>@drawable/ic_add_new_diary</item>
         <item>@drawable/ic_horoscope</item>
-        <item>@drawable/ic_horoscope</item>
         <item>@drawable/ic_settings</item>
-        <item>@drawable/ic_add_diary</item>
+        <item>@drawable/ic_log_out</item>
     </array>
     <array name="horoscope_icons">
         <item>@drawable/ic_aries</item>
@@ -91,5 +89,6 @@
     <string name="sml">Small</string>
     <string name="med">Medium</string>
     <string name="lrg">Large</string>
+    <string name="btn_email">Email</string>
 
 </resources>

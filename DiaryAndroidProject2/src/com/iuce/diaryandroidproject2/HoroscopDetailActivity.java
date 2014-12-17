@@ -18,7 +18,7 @@ public class HoroscopDetailActivity extends Fragment {
 
 	private TextView txtTitle;
 	private WebView webView;
-	private Button btnExit;
+	private Button btnBack;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -31,17 +31,26 @@ public class HoroscopDetailActivity extends Fragment {
 		Bundle bundle = this.getArguments();
 		txtTitle.setText(bundle.getString("title"));
 //		webView.loadUrl("http://onurkaraduman.com");
-		btnExit = (Button) view.findViewById(R.id.btnSendDiarySms);
-		webView.loadData((bundle.getString("description")), "text/html", "utf-8");
-		btnExit.setOnClickListener(new OnClickListener() {
+		btnBack = (Button) view.findViewById(R.id.btnHoroscopeBack);
+		btnBack.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				//fragmenti tekrardan stackten sil
-				getActivity().getFragmentManager().beginTransaction().remove(HoroscopDetailActivity.this).commit();
+				getActivity().getFragmentManager().popBackStack();
 			}
 		});
+	
+		webView.loadData((bundle.getString("description")), "text/html", "utf-8");
+//		btnExit.setOnClickListener(new OnClickListener() {
+//			
+//			@Override
+//			public void onClick(View v) {
+//				// TODO Auto-generated method stub
+//				//fragmenti tekrardan stackten sil
+//				getActivity().getFragmentManager().beginTransaction().remove(HoroscopDetailActivity.this).commit();
+//			}
+//		});
 		
 		return view;
 	}

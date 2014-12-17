@@ -40,5 +40,7 @@ public class DBConstants {
 	public static String CREATE_PHOTO_TABLE = "create table " + PHOTO_TABLE
 			+ "( " + PHOTO_ID + " integer primary key autoincrement, "
 			+ PHOTO_NAME + " text, " + PHOTO_DIARY_ID + " integer);";
+	
+	public static boolean musicPlaying = false;
 
 }

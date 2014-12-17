@@ -14,6 +14,7 @@ import java.util.regex.Pattern;
 
 import com.iuce.control.DiaryOperations;
 import com.iuce.entity.Diary;
+import com.iuce.services.SendingData;
 import com.iuce.services.VoiceRecord;
 
 import android.speech.RecognizerIntent;
@@ -21,6 +22,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Fragment;
+import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.CursorLoader;
 import android.content.DialogInterface;
@@ -75,9 +77,11 @@ public class AddDiaryActivity extends Fragment {
 	private Button btnDeleteAudio;
 	private Button btnPlayAudio;
 	private Button btnDeleteDiary;
+	private Button btnOpenPaint;
 
 	private static final int SELECT_PICTURE = 1;
 	static final int REQUEST_IMAGE_CAPTURE = 2;
+	private final int FRAGMENT_CODE = 0;
 	private int RESULT_SPEECH = 3;
 	private boolean isRecord = false;
 	private String selectedImagePath;
@@ -138,6 +142,7 @@ public class AddDiaryActivity extends Fragment {
 		btnDeleteAudio = (Button) view.findViewById(R.id.btnDeleteAudio);
 		btnPlayAudio = (Button) view.findViewById(R.id.btnPlayAudio);
 		btnDeleteDiary = (Button) view.findViewById(R.id.btnAddDiaryDelete);
+		btnOpenPaint = (Button) view.findViewById(R.id.btnOpenPaint);
 		Typeface font = Typeface.createFromAsset(getActivity().getAssets(),
 				"EngineerHand.ttf");
 		txtContent.setTypeface(font);
@@ -285,6 +290,23 @@ public class AddDiaryActivity extends Fragment {
 				onDelete();
 			}
 		});
+		btnOpenPaint.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				PaintFragment pFrag = new PaintFragment();
+				FragmentManager fm = getActivity().getFragmentManager();
+
+				pFrag.setTargetFragment(AddDiaryActivity.this, FRAGMENT_CODE);
+				FragmentTransaction ft = getActivity().getFragmentManager()
+						.beginTransaction();
+				ft.add(R.id.content_frame, pFrag);
+				ft.addToBackStack(null);
+				ft.commit();
+
+			}
+		});
 		return view;
 	}
 
@@ -381,7 +403,8 @@ public class AddDiaryActivity extends Fragment {
 									"Diary has been deleted", Toast.LENGTH_LONG)
 									.show();
 							ListDiaryActivity listDiary = new ListDiaryActivity();
-							FragmentTransaction ft = getActivity().getFragmentManager().beginTransaction();
+							FragmentTransaction ft = getActivity()
+									.getFragmentManager().beginTransaction();
 							ft.replace(R.id.content_frame, listDiary);
 							ft.commit();
 						} else
@@ -435,7 +458,7 @@ public class AddDiaryActivity extends Fragment {
 			isStartedPlaying = false;
 			btnPlayAudio.setBackgroundResource(R.drawable.ic_play);
 		} else {
-			vRecord.startPlaying();
+			vRecord.startPlaying(audioPath);
 			isStartedPlaying = true;
 			btnPlayAudio.setBackgroundResource(R.drawable.ic_stop_play);
 		}
@@ -527,6 +550,14 @@ public class AddDiaryActivity extends Fragment {
 				// set text field with return value
 				txtContent.setText(text.get(0));
 
+			} else if (requestCode == FRAGMENT_CODE
+					&& resultCode == Activity.RESULT_OK) {
+				if (data.getStringExtra("PhotoPath") != null) {
+					photoPath = data.getStringExtra("PhotoPath");
+					imgView.setImageURI(Uri.parse(photoPath));
+					imgView.setVisibility(View.VISIBLE);
+				}
+				
 			}
 		}
 	}
@@ -636,6 +667,24 @@ public class AddDiaryActivity extends Fragment {
 		super.onCreateOptionsMenu(menu, inflater);
 		// menu.clear();
 		inflater.inflate(R.menu.add_diary_fragment_menu, menu);
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		SendingData sendData = new SendingData(getActivity());
+		// TODO Auto-generated method stub
+		int id = item.getItemId();
+		switch (id) {
+		case R.id.itemSendEmail:
+			sendData.sendEmail(date, txtContent.getText().toString());
+			break;
+		case R.id.itemSendSms:
+			sendData.sendSms(txtContent.getText().toString());
+			break;
+		default:
+			break;
+		}
+		return super.onOptionsItemSelected(item);
 	}
 
 	public void onEditable() {

@@ -8,10 +8,13 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.Fragment;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Environment;
@@ -21,6 +24,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -33,6 +37,10 @@ public class PaintFragment extends Fragment implements OnClickListener {
 	private ImageView imgFoto;
 	private int MEDIA_TYPE_IMAGE = 1;
 	private int MEDIA_TYPE_VIDEO = 2;
+
+	private String photoPath;
+	private Button btnExit;
+
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -56,7 +64,8 @@ public class PaintFragment extends Fragment implements OnClickListener {
 		imgFoto = (ImageView) view.findViewById(R.id.imgFoto);
 		saveBtn = (ImageButton) view.findViewById(R.id.save_btn);
 		saveBtn.setOnClickListener(this);
-
+		btnExit = (Button) view.findViewById(R.id.btnExitPaint);
+		btnExit.setOnClickListener(this);
 		return view;
 	}
 
@@ -109,32 +118,19 @@ public class PaintFragment extends Fragment implements OnClickListener {
 			saveDialog.setPositiveButton("Evet",
 					new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog, int which) {
-
+							
 							byte[] data = convertBitmapToByteArray(drawView
 									.getDrawingCache());
-							onPictureTaken(data);
 
-							imgFoto.setImageBitmap(drawView.getDrawingCache());
-							// save drawing
-							// drawView.setDrawingCacheEnabled(true);
-							// String imgSaved =
-							// MediaStore.Images.Media.insertImage(
-							// getContentResolver(), drawView.getDrawingCache(),
-							// UUID.randomUUID().toString()+".png", "drawing");
-							// if(imgSaved!=null){
-							// Toast savedToast =
-							// Toast.makeText(getApplicationContext(),
-							// "Galeriye kayıt edildi!", Toast.LENGTH_SHORT);
-							// savedToast.show();
-							// }
-							// else{
-							// Toast unsavedToast =
-							// Toast.makeText(getApplicationContext(),
-							// "Üzgünüz! Bir hata ile karşılaşıldı...",
-							// Toast.LENGTH_SHORT);
-							// unsavedToast.show();
-							// }
-							// drawView.destroyDrawingCache();
+							onPictureTaken(data);
+						
+
+							Intent intent = new Intent();
+							intent.putExtra("PhotoPath", photoPath);
+							getTargetFragment().onActivityResult(
+									getTargetRequestCode(), Activity.RESULT_OK,
+									intent);
+							getFragmentManager().popBackStack();
 						}
 					});
 			saveDialog.setNegativeButton("İptal",
@@ -144,6 +140,8 @@ public class PaintFragment extends Fragment implements OnClickListener {
 						}
 					});
 			saveDialog.show();
+		} else if (view.getId() == R.id.btnExitPaint) {
+			getActivity().getFragmentManager().popBackStack();
 		}
 
 	}
@@ -248,6 +246,7 @@ public class PaintFragment extends Fragment implements OnClickListener {
 		}
 		// photopath to database
 		System.out.println("---------" + myPath);
+		photoPath = myPath;
 		return mediaFile;
 	}
 }

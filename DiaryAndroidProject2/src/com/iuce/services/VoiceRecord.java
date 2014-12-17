@@ -1,6 +1,8 @@
 package com.iuce.services;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
@@ -19,8 +21,10 @@ public class VoiceRecord {
 	public VoiceRecord() {
 		super();
 		mFileName = Environment.getExternalStorageDirectory().getAbsolutePath();
+		String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss")
+				.format(new Date());
 		// mFileName = Environment.getRootDirectory().getAbsolutePath();
-		mFileName += "/audiorecordtest.3gp";
+		mFileName += File.separator + "audio_" + timeStamp + ".3gp";
 		mRecorder = new MediaRecorder();
 		player = new MediaPlayer();
 
@@ -76,7 +80,27 @@ public class VoiceRecord {
 		} catch (Exception e) {
 		}
 	}
-	public boolean deleteRecord(){
+	public void startPlaying(String path){
+		player = new MediaPlayer();
+		player.setVolume(1.0f, 1.0f);
+		try {
+			player.setDataSource(path);
+			player.prepare();
+			player.start();
+			player.setOnCompletionListener(new OnCompletionListener() {
+
+				@Override
+				public void onCompletion(MediaPlayer arg0) {
+					player.stop();
+					player.release();
+					player = null;
+				}
+			});
+		} catch (Exception e) {
+		}
+	}
+
+	public boolean deleteRecord() {
 		File file = new File(mFileName);
 		boolean deleted = file.delete();
 		if (deleted) {
@@ -84,7 +108,8 @@ public class VoiceRecord {
 		}
 		return false;
 	}
-	public void stopPlaying(){
+
+	public void stopPlaying() {
 		player.stop();
 	}
 }

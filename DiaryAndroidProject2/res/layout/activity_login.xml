@@ -19,20 +19,6 @@
         android:layout_marginTop="88dp"
         android:src="@drawable/ic_locked_diary" />
 
-    <EditText
-        android:id="@+id/edttxtPincode"
-        android:layout_width="144dp"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/imgViewIconHoroscope"
-        android:layout_alignRight="@+id/imgViewIconHoroscope"
-        android:layout_below="@+id/imgViewIconHoroscope"
-        android:layout_marginTop="24dp"
-        android:background="#ffffff"
-        android:ems="10"
-        android:gravity="center"
-        android:hint="@string/txtPincode"
-        android:inputType="textPassword" />
-
     <Button
         android:id="@+id/btnLogin"
         android:layout_width="100dp"
@@ -46,5 +32,18 @@
         android:shadowDy="0"
         android:shadowRadius="5"
         android:text="@string/btnLogin" />
+
+    <EditText
+        android:id="@+id/edttxtPincode"
+        android:layout_width="144dp"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/imgViewIconHoroscope"
+        android:layout_below="@+id/imgViewIconHoroscope"
+        android:layout_marginTop="14dp"
+        android:background="#ffffff"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="@string/txtPincode"
+        android:inputType="textPassword" />
 
 </RelativeLayout>

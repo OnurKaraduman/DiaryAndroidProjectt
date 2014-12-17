@@ -81,4 +81,10 @@ public class LoginActivity extends Activity {
 //		}
 		return super.onOptionsItemSelected(item);
 	}
+
+	@Override
+	public void onBackPressed() {
+		// TODO Auto-generated method stub
+	}
+	
 }

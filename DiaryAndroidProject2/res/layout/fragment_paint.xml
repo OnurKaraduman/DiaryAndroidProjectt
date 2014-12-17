@@ -23,6 +23,13 @@
 		    android:layout_height="fill_parent"
 		    android:contentDescription="@string/save"
 		    android:src="@drawable/kaydet" />
+
+	    <Button
+	        android:id="@+id/btnExitPaint"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:background="@drawable/ic_exit" />
+
 	</LinearLayout>
 
 	 <com.iuce.diaryandroidproject2.DrawingView

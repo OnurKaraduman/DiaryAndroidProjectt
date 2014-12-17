@@ -2,34 +2,52 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg_blue"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.iuce.diaryandroidproject2.HoroscopDetailActivity" >
 
-    <WebView
-        android:id="@+id/webView1"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_centerHorizontal="true" />
-
-    <TextView
-        android:id="@+id/txtDetailHoroscopeTitle"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/webView1"
-        android:layout_alignTop="@+id/webView1"
-        android:layout_marginLeft="16dp"
-        android:text="Large Text"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:orientation="vertical" >
 
-    <Button
-        android:id="@+id/btnSendDiarySms"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/webView1"
-        android:layout_alignTop="@+id/webView1"
-        android:text="@string/btn_exit_detal_horoscope" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:background="@drawable/edit_text_shape"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/btnHoroscopeBack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ic_back" />
+
+            <TextView
+                android:id="@+id/txtDetailHoroscopeTitle"
+                
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:text="Large Text"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+          
+        </LinearLayout>
+
+        <WebView
+            android:id="@+id/webView1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="20dp" 
+            android:background="@drawable/edit_text_shape"/>
+
+    </LinearLayout>
 
 </RelativeLayout>
