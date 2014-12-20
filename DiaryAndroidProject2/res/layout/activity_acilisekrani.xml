@@ -15,7 +15,7 @@
         android:layout_below="@+id/imgViewIconHoroscope"
         android:layout_marginTop="33sp"
         android:fontFamily="Times New Roman"
-        android:text="Her anını yazmaya "
+        android:text="@string/txt_first_screen1"
         android:textColor="#4f0032"
         android:textSize="25sp"
         android:textStyle="italic" />
@@ -29,7 +29,7 @@
         android:layout_below="@+id/txtMonthAndYear"
         android:layout_marginTop="16sp"
         android:fontFamily="Times New Roman"
-        android:text="Hazır mısın?"
+        android:text="@string/txt_first_screen_writing"
         android:textColor="#4f0032"
         android:textSize="32sp"
         android:textStyle="italic" />
@@ -41,7 +41,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:fontFamily="Times New Roman"
-        android:text="Yükleniyor..."
+        android:text="@string/txt_first_screen_loading"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="#4f0032"
         android:textSize="20sp"

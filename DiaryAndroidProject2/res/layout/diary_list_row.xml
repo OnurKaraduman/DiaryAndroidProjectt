@@ -1,41 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/list_item_title"
-    android:descendantFocusability="blocksDescendants" >
+    android:descendantFocusability="blocksDescendants"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_calendar_header" >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="70dp" >
+
+                <Button
+                    android:id="@+id/btnDiaryListDay"
+                    android:layout_width="42dp"
+                    android:layout_height="44dp"
+                    android:background="@drawable/ic_calendar" />
+
+                <TextView
+                    android:id="@+id/txtDiaryListMonthYear"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="TextView"
+                    android:textColorHint="@color/list_item_title" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_calendar_title"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/txtDiaryListTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:text="Large Text"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+        </LinearLayout>
+    </LinearLayout>
 
     <TextView
         android:id="@+id/txtDiaryListId"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_x="100dp"
-        android:layout_y="81dp"
         android:visibility="invisible" />
 
-    <Button
-        android:id="@+id/btnDiaryListDay"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_x="26dp"
-        android:layout_y="5dp"
-        android:background="@drawable/ic_calendar" />
-
-    <TextView
-        android:id="@+id/txtDiaryListMonthYear"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_x="43dp"
-        android:layout_y="92dp"
-        android:text="TextView" />
-
-    <TextView
-        android:id="@+id/txtDiaryListTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_x="126dp"
-        android:layout_y="43dp"
-        android:text="Large Text"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-</AbsoluteLayout>
+</LinearLayout>

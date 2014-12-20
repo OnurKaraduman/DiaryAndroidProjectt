@@ -49,6 +49,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.EditText;
@@ -117,6 +118,7 @@ public class AddDiaryActivity extends Fragment {
 
 		// TODO Auto-generated method stub
 		setHasOptionsMenu(true);
+		getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 		View view = inflater.inflate(R.layout.activity_add_diary, container,
 				false);
 
@@ -218,6 +220,12 @@ public class AddDiaryActivity extends Fragment {
 						if (saveDiary()) {
 							Toast.makeText(getActivity(), "Saved diary",
 									Toast.LENGTH_LONG).show();
+							txtContent.setEnabled(false);
+							txtTitle.setEnabled(false);
+							btnSaveDiary.setBackgroundResource(R.drawable.ic_not_editable);
+							isUpdate = true;
+							isNew = false;
+						
 						} else
 							Toast.makeText(getActivity(),
 									"Error! Something wrong", Toast.LENGTH_LONG)
@@ -257,7 +265,7 @@ public class AddDiaryActivity extends Fragment {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				boolean deleted = vRecord.deleteRecord();
+				boolean deleted = vRecord.deleteRecord(audioPath);
 				if (deleted) {
 					Toast.makeText(getActivity(), "Deleted audio",
 							Toast.LENGTH_LONG).show();
@@ -458,10 +466,16 @@ public class AddDiaryActivity extends Fragment {
 			isStartedPlaying = false;
 			btnPlayAudio.setBackgroundResource(R.drawable.ic_play);
 		} else {
-			vRecord.startPlaying(audioPath);
+			
+			vRecord.startPlaying(audioPath, this);
 			isStartedPlaying = true;
 			btnPlayAudio.setBackgroundResource(R.drawable.ic_stop_play);
+			
 		}
+	}
+	public void btnPlayStopImage(){
+		btnPlayAudio.setBackgroundResource(R.drawable.ic_play);
+		isStartedPlaying = false;
 	}
 
 	public void onRecord() {

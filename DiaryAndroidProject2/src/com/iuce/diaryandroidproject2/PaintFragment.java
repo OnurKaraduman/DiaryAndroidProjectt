@@ -41,7 +41,6 @@ public class PaintFragment extends Fragment implements OnClickListener {
 	private String photoPath;
 	private Button btnExit;
 
-
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -66,6 +65,7 @@ public class PaintFragment extends Fragment implements OnClickListener {
 		saveBtn.setOnClickListener(this);
 		btnExit = (Button) view.findViewById(R.id.btnExitPaint);
 		btnExit.setOnClickListener(this);
+		initImageButtonColor(view);
 		return view;
 	}
 
@@ -118,12 +118,11 @@ public class PaintFragment extends Fragment implements OnClickListener {
 			saveDialog.setPositiveButton("Evet",
 					new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog, int which) {
-							
+
 							byte[] data = convertBitmapToByteArray(drawView
 									.getDrawingCache());
 
 							onPictureTaken(data);
-						
 
 							Intent intent = new Intent();
 							intent.putExtra("PhotoPath", photoPath);
@@ -146,17 +145,99 @@ public class PaintFragment extends Fragment implements OnClickListener {
 
 	}
 
+	public void initImageButtonColor(View view) {
+		ImageButton imgBtn1 = (ImageButton) view.findViewById(R.id.imgBtn1);
+		ImageButton imgBtn2 = (ImageButton) view.findViewById(R.id.imgBtn2);
+		ImageButton imgBtn3 = (ImageButton) view.findViewById(R.id.imgBtn3);
+		ImageButton imgBtn4 = (ImageButton) view.findViewById(R.id.imgBtn4);
+		ImageButton imgBtn5 = (ImageButton) view.findViewById(R.id.imgBtn5);
+		ImageButton imgBtn6 = (ImageButton) view.findViewById(R.id.imgBtn6);
+		ImageButton imgBtn7 = (ImageButton) view.findViewById(R.id.imgBtn7);
+		ImageButton imgBtn8 = (ImageButton) view.findViewById(R.id.imgBtn8);
+		imgBtn1.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				paintClicked(v);
+			}
+		});
+		imgBtn1.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				paintClicked(v);
+			}
+		});
+		imgBtn2.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				paintClicked(v);
+			}
+		});
+		imgBtn3.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				paintClicked(v);
+			}
+		});
+		imgBtn4.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				paintClicked(v);
+			}
+		});
+		imgBtn5.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				paintClicked(v);
+			}
+		});
+		imgBtn6.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				paintClicked(v);
+			}
+		});
+		imgBtn7.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				paintClicked(v);
+			}
+		});
+		imgBtn8.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				paintClicked(v);
+			}
+		});
+	}
+
 	public void paintClicked(View view) {
-		if (view != currPaint) {
-			ImageButton imgView = (ImageButton) view;
-			String color = view.getTag().toString();
-			drawView.setColor(color);
-			imgView.setImageDrawable(getResources().getDrawable(
-					R.drawable.paint_pressed));
-			currPaint.setImageDrawable(getResources().getDrawable(
-					R.drawable.paint));
-			currPaint = (ImageButton) view;
-		}
+
+		ImageButton imgView = (ImageButton) view;
+		String color = view.getTag().toString();
+		drawView.setColor(color);
+		imgView.setImageDrawable(getResources().getDrawable(
+				R.drawable.paint_pressed));
+		currPaint
+				.setImageDrawable(getResources().getDrawable(R.drawable.paint));
+		currPaint = (ImageButton) view;
 
 	}
 

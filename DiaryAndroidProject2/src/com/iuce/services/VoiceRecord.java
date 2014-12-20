@@ -4,6 +4,8 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import com.iuce.diaryandroidproject2.AddDiaryActivity;
+
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.media.MediaRecorder;
@@ -80,7 +82,7 @@ public class VoiceRecord {
 		} catch (Exception e) {
 		}
 	}
-	public void startPlaying(String path){
+	public void startPlaying(String path, final AddDiaryActivity addFragment){
 		player = new MediaPlayer();
 		player.setVolume(1.0f, 1.0f);
 		try {
@@ -94,14 +96,16 @@ public class VoiceRecord {
 					player.stop();
 					player.release();
 					player = null;
+					addFragment.btnPlayStopImage();
+					
 				}
 			});
 		} catch (Exception e) {
 		}
 	}
 
-	public boolean deleteRecord() {
-		File file = new File(mFileName);
+	public boolean deleteRecord(String audioPath) {
+		File file = new File(audioPath);
 		boolean deleted = file.delete();
 		if (deleted) {
 			return true;

@@ -23,6 +23,8 @@ import com.iuce.entity.Horoscope;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -51,49 +53,58 @@ public class HoroscopeFragment extends Fragment {
 		View view = inflater.inflate(R.layout.fragment_horoscope, container,
 				false);
 		horoscopes = new ArrayList<Horoscope>();
-		progDialog = new ProgressDialog(getActivity());
-		progDialog.setMessage("Loading..");
-		String horoscopeXmlUrl = "http://www.astrology.com/horoscopes/daily-horoscope.rss";
-		listViewHoroscopes = (ListView) view
-				.findViewById(R.id.lstViewHoroscope);
-		new XmlHoroscopeTask().execute(horoscopeXmlUrl);
-		hAdapter = new HoroscopeListAdapter(getActivity(),
-				R.layout.fragment_horoscope, horoscopes);
-		listViewHoroscopes.setAdapter(hAdapter);
-		listViewHoroscopes.setOnItemClickListener(new OnItemClickListener() {
+		if (isNetworkAvailable(getActivity())) {
+			progDialog = new ProgressDialog(getActivity());
+			progDialog.setMessage("Loading..");
+			String horoscopeXmlUrl = "http://www.astrology.com/horoscopes/daily-horoscope.rss";
+			listViewHoroscopes = (ListView) view
+					.findViewById(R.id.lstViewHoroscope);
+			new XmlHoroscopeTask().execute(horoscopeXmlUrl);
+			hAdapter = new HoroscopeListAdapter(getActivity(),
+					R.layout.fragment_horoscope, horoscopes);
+			listViewHoroscopes.setAdapter(hAdapter);
+			listViewHoroscopes.setOnItemClickListener(new OnItemClickListener() {
 
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
-				// TODO Auto-generated method stub
-				// TextView txt = (TextView) view
-				// .findViewById(R.id.txtHoroscopeTitle);
-				// Toast.makeText(getActivity(), txt.getText(),
-				// Toast.LENGTH_LONG)
-				// .show();3
-				TextView txtTitle = (TextView) view
-						.findViewById(R.id.txtHoroscopeTitle);
-				TextView txtDescription = (TextView) view
-						.findViewById(R.id.txtHoroscopeDescription);
+				@Override
+				public void onItemClick(AdapterView<?> parent, View view,
+						int position, long id) {
+					// TODO Auto-generated method stub
+					// TextView txt = (TextView) view
+					// .findViewById(R.id.txtHoroscopeTitle);
+					// Toast.makeText(getActivity(), txt.getText(),
+					// Toast.LENGTH_LONG)
+					// .show();3
+					TextView txtTitle = (TextView) view
+							.findViewById(R.id.txtHoroscopeTitle);
+					TextView txtDescription = (TextView) view
+							.findViewById(R.id.txtHoroscopeDescription);
 
-				Bundle b = new Bundle();
-				b.putString(HOROSCOPE_TITLE, txtTitle.getText().toString());
-				b.putString(HOROSCOPE_DESCRIPTION, txtDescription.getText()
-						.toString());
-				HoroscopDetailActivity hDetail = new HoroscopDetailActivity();
-				hDetail.setArguments(b);
-				FragmentTransaction ft = getActivity().getFragmentManager()
-						.beginTransaction();
+					Bundle b = new Bundle();
+					b.putString(HOROSCOPE_TITLE, txtTitle.getText().toString());
+					b.putString(HOROSCOPE_DESCRIPTION, txtDescription.getText()
+							.toString());
+					HoroscopDetailActivity hDetail = new HoroscopDetailActivity();
+					hDetail.setArguments(b);
+					FragmentTransaction ft = getActivity().getFragmentManager()
+							.beginTransaction();
 
-				ft.add(R.id.content_frame, hDetail);
-				ft.addToBackStack(null);
-				ft.commit();
-			}
+					ft.add(R.id.content_frame, hDetail);
+					ft.addToBackStack(null);
+					ft.commit();
+				}
 
-		});
+			});
+		}
+		else
+			Toast.makeText(getActivity(), "No internet connection", Toast.LENGTH_LONG).show();
+		
 		return view;
 	}
 
+	public static boolean isNetworkAvailable(Context context) 
+	{
+	    return ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE)).getActiveNetworkInfo() != null;
+	}
 	public class XmlHoroscopeTask extends
 			AsyncTask<String, Void, List<Horoscope>> {
 		@Override

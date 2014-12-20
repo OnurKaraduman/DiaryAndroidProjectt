@@ -2,6 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:layout_marginTop="1dp"
+    android:background="@drawable/bg_blue"
     android:orientation="vertical" >
 
     <Switch
@@ -10,7 +12,9 @@
         android:layout_height="wrap_content"
         android:layout_x="14dp"
         android:layout_y="11dp"
-        android:text="@string/sw_start_stop_music" />
+        android:text="@string/sw_start_stop_music"
+        android:textColorHint="@color/list_item_title"
+        android:textSize="20sp" />
 
     <Button
         android:id="@+id/btnMusicPlayer"
@@ -24,6 +28,7 @@
         android:id="@+id/edttxtCurrentPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/list_item_title"
         android:ems="10"
         android:hint="@string/btn_current_password"
         android:inputType="textPassword" >
@@ -35,6 +40,8 @@
         android:id="@+id/edttxtNewPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@color/list_item_title"
         android:ems="10"
         android:hint="@string/btn_new_password"
         android:inputType="textPassword" />
@@ -43,6 +50,8 @@
         android:id="@+id/edttxtNewPasswordAgain"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="7dp"
+        android:background="@color/list_item_title"
         android:ems="10"
         android:hint="@string/btn_new_password_again"
         android:inputType="textPassword" />
