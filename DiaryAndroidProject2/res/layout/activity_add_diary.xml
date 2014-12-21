@@ -98,9 +98,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="45dp"
-                    android:layout_marginRight="20dp"
-                    android:orientation="vertical" >
+                    android:layout_marginLeft="20dp" >
 
                     <ImageView
                         android:id="@+id/imgViewIconHoroscope"
@@ -112,6 +110,23 @@
                         android:background="@drawable/my_image_border"
                         android:src="@drawable/abc_ab_bottom_solid_dark_holo"
                         android:visibility="invisible" />
+
+                    <Button
+                        android:id="@+id/btnDeletePhoto"
+                        style="?android:attr/buttonStyleSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/ic_exit"
+                        android:visibility="invisible" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="45dp"
+                    android:layout_marginRight="20dp"
+                    android:orientation="vertical" >
 
                     <LinearLayout
                         android:layout_width="match_parent"

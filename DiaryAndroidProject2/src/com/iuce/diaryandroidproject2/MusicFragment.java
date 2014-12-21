@@ -39,6 +39,7 @@ public class MusicFragment extends Fragment {
 		// TODO Auto-generated method stub
 
 		View view = inflater.inflate(R.layout.fragment_music, container, false);
+		getActivity().getActionBar().setIcon(R.drawable.ic_settings);
 		logControl = new LoginControl(getActivity());
 		swStartStop = (Switch) view.findViewById(R.id.swStartStop);
 		btnOpenMusicPlayer = (Button) view.findViewById(R.id.btnMusicPlayer);

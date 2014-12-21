@@ -28,6 +28,7 @@ public class DateSelectFragment extends Fragment {
 
 		View view = inflater.inflate(R.layout.fragment_date_selector,
 				container, false);
+		getActivity().getActionBar().setIcon(R.drawable.ic_calendar);
 		proDialog = new ProgressDialog(getActivity());
 		diaryOperations = new DiaryOperations(getActivity());
 		calenderView = (CalendarView) view.findViewById(R.id.calendarView1);

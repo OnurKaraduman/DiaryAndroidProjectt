@@ -46,6 +46,7 @@ public class PaintFragment extends Fragment implements OnClickListener {
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		View view = inflater.inflate(R.layout.fragment_paint, container, false);
+		getActivity().getActionBar().setIcon(R.drawable.firca);
 		drawView = (DrawingView) view.findViewById(R.id.drawingView1);
 		LinearLayout paintLayout = (LinearLayout) view
 				.findViewById(R.id.paint_colors);

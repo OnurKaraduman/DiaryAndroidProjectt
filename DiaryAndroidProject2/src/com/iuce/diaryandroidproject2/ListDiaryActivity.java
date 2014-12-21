@@ -38,7 +38,7 @@ public class ListDiaryActivity extends Fragment {
 		// TODO Auto-generated method stub
 
 		View view = inflater.inflate(R.layout.activity_list_diary, container,false);
-		
+		getActivity().getActionBar().setIcon(R.drawable.ic_list_diary);
 		diaryOperation = new DiaryOperations(getActivity());
 		listDiary = (ListView) view.findViewById(R.id.listDiary);
 		listDiary.setOnItemClickListener(new OnItemClickListener() {

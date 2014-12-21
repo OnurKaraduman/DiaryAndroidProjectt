@@ -26,6 +26,7 @@ public class HoroscopDetailActivity extends Fragment {
 		// TODO Auto-generated method stub
 		View view = inflater.inflate(R.layout.activity_horoscop_detail,
 				container, false);
+		getActivity().getActionBar().setIcon(R.drawable.ic_horoscope);
 		txtTitle = (TextView) view.findViewById(R.id.txtDetailHoroscopeTitle);
 		webView = (WebView) view.findViewById(R.id.webView1);
 		Bundle bundle = this.getArguments();

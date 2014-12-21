@@ -52,6 +52,7 @@ public class HoroscopeFragment extends Fragment {
 		// TODO Auto-generated method stub
 		View view = inflater.inflate(R.layout.fragment_horoscope, container,
 				false);
+		getActivity().getActionBar().setIcon(R.drawable.ic_horoscope);
 		horoscopes = new ArrayList<Horoscope>();
 		if (isNetworkAvailable(getActivity())) {
 			progDialog = new ProgressDialog(getActivity());

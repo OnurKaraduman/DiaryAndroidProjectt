@@ -10,6 +10,8 @@ import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 import java.util.regex.Pattern;
 
 import com.iuce.control.DiaryOperations;
@@ -33,6 +35,8 @@ import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable.Callback;
 import android.hardware.Camera;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -111,6 +115,7 @@ public class AddDiaryActivity extends Fragment {
 	private boolean isNew = true;
 	private boolean isStartedPlaying = false;
 	private boolean isUpdate = false;
+	private Button btnDeletePhoto;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -118,7 +123,9 @@ public class AddDiaryActivity extends Fragment {
 
 		// TODO Auto-generated method stub
 		setHasOptionsMenu(true);
-		getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+		getActivity().getWindow().setSoftInputMode(
+				WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+		getActivity().getActionBar().setIcon(R.drawable.ic_add_diary2);
 		View view = inflater.inflate(R.layout.activity_add_diary, container,
 				false);
 
@@ -145,6 +152,7 @@ public class AddDiaryActivity extends Fragment {
 		btnPlayAudio = (Button) view.findViewById(R.id.btnPlayAudio);
 		btnDeleteDiary = (Button) view.findViewById(R.id.btnAddDiaryDelete);
 		btnOpenPaint = (Button) view.findViewById(R.id.btnOpenPaint);
+		btnDeletePhoto = (Button) view.findViewById(R.id.btnDeletePhoto);
 		Typeface font = Typeface.createFromAsset(getActivity().getAssets(),
 				"EngineerHand.ttf");
 		txtContent.setTypeface(font);
@@ -222,10 +230,11 @@ public class AddDiaryActivity extends Fragment {
 									Toast.LENGTH_LONG).show();
 							txtContent.setEnabled(false);
 							txtTitle.setEnabled(false);
-							btnSaveDiary.setBackgroundResource(R.drawable.ic_not_editable);
+							btnSaveDiary
+									.setBackgroundResource(R.drawable.ic_not_editable);
 							isUpdate = true;
 							isNew = false;
-						
+
 						} else
 							Toast.makeText(getActivity(),
 									"Error! Something wrong", Toast.LENGTH_LONG)
@@ -315,8 +324,64 @@ public class AddDiaryActivity extends Fragment {
 
 			}
 		});
+		
+		btnDeletePhoto.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				imgView.setVisibility(View.INVISIBLE);
+				photoPath = null;
+				btnDeletePhoto.setVisibility(View.INVISIBLE);
+			}
+		});
 		return view;
 	}
+
+//	private String getCompleteAddressString(double LATITUDE, double LONGITUDE) {
+//		String strAdd = "";
+//		Geocoder geocoder = new Geocoder(getActivity(), Locale.getDefault());
+//		try {
+//			List<Address> addresses = geocoder.getFromLocation(LATITUDE,
+//					LONGITUDE, 1);
+//			if (addresses != null) {
+//				Address returnedAddress = addresses.get(0);
+//				StringBuilder strReturnedAddress = new StringBuilder("");
+//
+//				for (int i = 0; i < returnedAddress.getMaxAddressLineIndex(); i++) {
+//					strReturnedAddress
+//							.append(returnedAddress.getAddressLine(i)).append(
+//									"\n");
+//				}
+//				strAdd = strReturnedAddress.toString();
+//				Log.w("My Current loction address",
+//						"" + strReturnedAddress.toString());
+//			} else {
+//				Log.w("My Current loction address", "No Address returned!");
+//			}
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			Log.w("My Current loction address", "Canont get Address!" + e);
+//		}
+//		return strAdd;
+//	}
+
+//	public void getLocAdd() {
+//		Geocoder geocoder = new Geocoder(getActivity(), Locale.getDefault());
+//		List<Address> addresses = new ArrayList<Address>();;
+//		try {
+//			addresses = geocoder.getFromLocation(41.0448839, 28.6802007, 1);
+//		} catch (IOException e) {
+//			e.toString();
+//		}
+//
+//		String address = addresses.get(0).getAddressLine(0);
+//		String city = addresses.get(0).getAddressLine(1);
+//		String country = addresses.get(0).getAddressLine(2);
+//
+////		txtYeniLokasyon.setText(address + " " + city + " " + country);
+//		Toast.makeText(getActivity(), address + " " + city + " " + country, Toast.LENGTH_LONG).show();
+//	}
 
 	private boolean saveDiary() {
 		Diary d = new Diary();
@@ -386,6 +451,7 @@ public class AddDiaryActivity extends Fragment {
 		if (photoPath != null) {
 			imgView.setImageURI(Uri.parse(photoPath));
 			imgView.setVisibility(View.VISIBLE);
+			btnDeletePhoto.setVisibility(View.VISIBLE);
 		}
 		if (audioPath != null) {
 			txtAudioPath.setText("1 record");
@@ -466,14 +532,15 @@ public class AddDiaryActivity extends Fragment {
 			isStartedPlaying = false;
 			btnPlayAudio.setBackgroundResource(R.drawable.ic_play);
 		} else {
-			
+
 			vRecord.startPlaying(audioPath, this);
 			isStartedPlaying = true;
 			btnPlayAudio.setBackgroundResource(R.drawable.ic_stop_play);
-			
+
 		}
 	}
-	public void btnPlayStopImage(){
+
+	public void btnPlayStopImage() {
 		btnPlayAudio.setBackgroundResource(R.drawable.ic_play);
 		isStartedPlaying = false;
 	}
@@ -549,6 +616,7 @@ public class AddDiaryActivity extends Fragment {
 				System.out.println("--------" + pathImage);
 				imgView.setImageURI(Uri.parse(photoPath));
 				imgView.setVisibility(View.VISIBLE);
+				btnDeletePhoto.setVisibility(View.VISIBLE);
 
 			} else if (requestCode == REQUEST_IMAGE_CAPTURE) {
 				Bundle extras = data.getExtras();
@@ -571,7 +639,7 @@ public class AddDiaryActivity extends Fragment {
 					imgView.setImageURI(Uri.parse(photoPath));
 					imgView.setVisibility(View.VISIBLE);
 				}
-				
+
 			}
 		}
 	}

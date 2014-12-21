@@ -25,6 +25,7 @@ public class LoginActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
+		getActionBar().setIcon(R.drawable.ic_locked_diary);
 		edtTxtPassword =(EditText) findViewById(R.id.edttxtPincode);
 		btnLogin = (Button) findViewById(R.id.btnLogin);
 		

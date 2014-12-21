@@ -21,6 +21,7 @@ public class PhotoFragment extends Fragment{
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		View view = inflater.inflate(R.layout.fragment_image_view, container, false);
+		getActivity().getActionBar().setIcon(R.drawable.ic_add_diary2);
 		imgView = (ImageView) view.findViewById(R.id.imageView1);
 		Bundle b = getArguments();
 		String photoPath = b.getString("photoPath");

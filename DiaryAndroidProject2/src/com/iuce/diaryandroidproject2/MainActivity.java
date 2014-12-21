@@ -242,4 +242,12 @@ public class MainActivity extends ActionBarActivity {
 		// TODO Auto-generated method stub
 	}
 
+//	@Override
+//	protected void onStop() {
+//		// TODO Auto-generated method stub
+//		super.onStop();
+//		Intent i = new Intent(MainActivity.this, LoginActivity.class);
+//		startActivity(i);
+//	}
+
 }
